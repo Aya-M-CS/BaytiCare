@@ -1,0 +1,488 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BaytiCare</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link rel="stylesheet" href="index.css">
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+  apiKey: "AIzaSyD3lvln6AhHHAYdgd-70QuWN9XQzxVYH3Y",
+  authDomain: "bayticare-222ab.firebaseapp.com",
+  projectId: "bayticare-222ab",
+  storageBucket: "bayticare-222ab.firebasestorage.app",
+  messagingSenderId: "933602336408",
+  appId: "1:933602336408:web:1778209b210c8f052ebaed",
+  measurementId: "G-DMGMJTBRK8"
+};
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+</script>
+
+
+</head>
+
+<body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+crossorigin="anonymous"></script>
+
+<!-- Start Navigation -->
+<nav class="navbar">
+<a class="navbar-brand" href="index.html">
+<img src="images/logo2-removebg-preview.png" alt="BaytiCare Logo" style="margin-left: 10px;">
+</a>
+
+<div class="nb-divider" id="divider-main"></div>
+
+<div class="nav-links" id="nav-links">
+<a class="nav-item" href="furniture-stores.html"><span class="icon">🛋️</span><span class="label">Furniture Stores</span></a>
+<a class="nav-item" href="carpenters.html"><span class="icon">🪚</span><span class="label">Carpenters</span></a>
+<a class="nav-item" href="blacksmiths.html"><span class="icon">⚒️</span><span class="label">Blacksmiths</span></a>
+<a class="nav-item" href="moving-companies.html"><span class="icon">🚛</span><span class="label">Moving Companies</span></a>
+<a class="nav-item" href="home-helpers.html"><span class="icon">🏠</span><span class="label">Home Helpers</span></a>
+<a class="nav-item" href="home-services.html"><span class="icon">🔧</span><span class="label">Home Services</span></a>
+</div>
+<div class="right-group">
+<a href="favorites.html" id="nav-fav-btn" style="text-decoration: none; display: none;">
+    <button class="icon-btn fav-hover" title="My Favorites" style="padding: 5px 10px;">
+        <i class="fa fa-heart" style="font-size: 19px;"></i>
+    </button>
+</a>
+
+<button type="button" class="lang-btn" id="langToggle">🌐</button>
+<button type="button" class="lang-btn" id="darkModeToggle" title="Dark Mode">🌙</button>
+<div id="auth-section">
+    <a href="login2.html" style="text-decoration: none;">
+        <button class="icon-btn" style="border: 1px solid none; background-color: rgb(255, 235, 239); color: var(--navbar); padding: 5px; font-weight: bold; width: 60px;">Login</button>
+    </a>
+</div>
+<button class="hamburger-btn" id="hamburger-btn">
+
+<span></span>
+<span></span>
+<span></span>
+</button>
+</div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+    <a class="nav-item-mobile" href="furniture-stores.html"><span>🛋️</span> Furniture Stores</a>
+    <a class="nav-item-mobile" href="carpenters.html"><span>🪚</span> Carpenters</a>
+    <a class="nav-item-mobile" href="blacksmiths.html"><span>⚒️</span> Blacksmiths</a>
+    <a class="nav-item-mobile" href="moving-companies.html"><span>🚛</span> Moving Companies</a>
+    <a class="nav-item-mobile" href="home-helpers.html"><span>🏠</span> Home Helpers</a>
+    <a class="nav-item-mobile" href="home-services.html"><span>🔧</span> Home Services</a>
+</div>
+<!-- End Navigation -->
+
+
+<!-- Main Content -->
+<main>
+<section class="section">
+<div class="img-box">
+<img src="images/room.jpg" alt="Luxury Furniture" class="room">
+<div class="overlay"></div>
+<div class="center-content">
+<h2 class="text-img" style="width: max-content;">Everything Your Home Needs</h2>
+<p>Discover the best furniture stores, carpenters, blacksmiths, moving companies, home helpers, and home services in your area</p>
+<form action="" class="form-search">
+    <div class="input-container"> <svg class="search-circle" fill="none" height="24" width="24"
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="gray"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" name="search" id="search-box" class="search" placeholder="Search...">
+    </div>
+    <button type="submit" class="submit">Search</button>
+</form>
+</div>
+</section>
+<section>
+<div class="contant">
+<div class="container1">
+<div class="cont-text">
+    <h3 class="h3">Browse by Category</h3>
+    <p class="choose">Choose the service you need and start searching</p>
+</div>
+<div class="cont-button">
+    <a class="b1" href="furniture-stores.html">
+        <span class="icon1">🛋️</span>
+        <div class="t1">Furniture Stores</div>
+    </a>
+    <a class="b2" href="carpenters.html">
+        <span class="icon2">🪚</span>
+        <div class="t2">Carpenters</div>
+    </a>
+    <a class="b3" href="blacksmiths.html">
+        <span class="icon3">⚒️</span>
+        <div class="t3">Blacksmiths</div>
+    </a>
+    <a class="b4" href="moving-companies.html">
+        <span class="icon4">🚛</span>
+        <div class="t4">Moving Companies</div>
+    </a>
+    <a class="b5" href="home-helpers.html">
+        <span class="icon5">🏠</span>
+        <div class="t5">Home Helpers</div>
+    </a>
+    <a class="b6" href="home-services.html">
+        <span class="icon6">🔧</span>
+        <div class="t6">Home Services</div>
+    </a>
+</div>
+</div>
+</section>
+<hr class="break">
+
+<!-- End Cards -->
+
+<!-- Start Sections -->
+<section class="new" style="margin-top: 40px; margin-bottom: 50px; padding: 0 20px;">
+    <h2 style="font-weight: bold; margin-bottom: 20px;">All Categories & Stores</h2>
+    
+    <div class="cards-grid" id="all-stores-grid">
+    </div>
+</section>
+
+
+</main>
+
+<!-- Start Footer -->
+<footer class="footer">
+<div class="footer-container">
+
+<div class="footer-col">
+<div class="footer-logo">
+<img src="images/logo2-removebg-preview.png" alt="logo" style="width: 140px; height: 90px;">
+</div>
+<p class="footer-desc" style="margin-right: 50px;">Your comprehensive guide to all home services. <br> We help you find the best
+furniture stores, craftsmen, and home service companies in your area.</p>
+</div>
+
+<div class="footer-col">
+<h3 class="footer-title">Categories</h3>
+<ul class="footer-list">
+<li><span>🛋️ Furniture Stores</span></li>
+<li><span>🪚 Carpenters</span></li>
+<li><span>⚒️ Blacksmiths</span></li>
+<li><span>🚛 Moving Companies</span></li>
+<li><span>🏠 Home Helpers</span></li>
+<li><span>🔧 Home Services</span></li>
+</ul>
+</div>
+
+<div class="footer-col">
+<h3 class="footer-title">Contact Us</h3>
+<div class="footer-contact">
+<p>📧 info@baitak.jo</p>
+<p>📞 +962 6 000 0000</p>
+</div>
+</div>
+</div>
+<hr class="footer-divider">
+<div class="footer-bottom">
+© 2026 BaytiCare - All rights reserved | Graduation Project
+</div>
+</footer>
+
+  </footer>
+
+<script>
+const btn = document.getElementById('hamburger-btn');
+const menu = document.getElementById('mobile-menu');
+
+if (btn && menu) {
+    btn.addEventListener('click', () => menu.classList.toggle('open'));
+    document.addEventListener('click', (e) => {
+        if (!btn.contains(e.target) && !menu.contains(e.target)) menu.classList.remove('open');
+    });
+}
+
+const customSelect = document.querySelector('.custom-select');
+if (customSelect) {
+    function selectCity(city) {
+        document.getElementById('selected-city').textContent = city;
+    }
+
+    customSelect.addEventListener('click', function(e) {
+        this.querySelector('.options').classList.toggle('open');
+        e.stopPropagation();
+    });
+
+    document.addEventListener('click', () => {
+        const options = document.querySelector('.options');
+        if (options) options.classList.remove('open');
+    });
+}
+
+const storesDatabase = [
+    
+];
+
+const categoryEmojis = {
+    "Furniture Stores": "🛋️",
+    "Carpenters": "🪚",
+    "Blacksmiths": "⚒️",
+    "Moving Companies": "🚛",
+    "Home Helpers": "🏠",
+    "Home Services": "🔧"
+};
+
+const categoryNames = {
+    furniture: "Furniture Stores",
+    carpenters: "Carpenters",
+    blacksmiths: "Blacksmiths",
+    moving: "Moving Companies",
+    helpers: "Home Helpers",
+    services: "Home Services"
+};
+
+let allStoresCache = [];
+
+function getCategoryName(value) {
+    return categoryNames[value] || value || "Furniture Stores";
+}
+
+function normalizeStore(doc) {
+    const data = doc.data();
+
+    return {
+        id: doc.id,
+        name: data.storeName || data.name || "New Store",
+        categoryName: getCategoryName(data.storeCategory || data.storeSpecialty || data.category),
+        rating: data.rating || "0.0",
+        desc: data.storeDescription || data.description || "A newly joined service provider on BaytiCare.",
+        loc: data.ownerCity || data.city || data.address || "Amman",
+        phone: data.ownerPhone || data.phone || "",
+        ownerName: data.ownerName || data.name || ""
+    };
+}
+
+function renderAllStores(firebaseStores = []) {
+    const grid = document.getElementById('all-stores-grid');
+    if (!grid) return;
+
+    if (firebaseStores.length === 0) {
+        grid.innerHTML = '<div style="text-align:center; width:100%; padding:50px; color:gray;">No stores available yet.</div>';
+        return;
+    }
+
+    let htmlContent = '';
+
+    firebaseStores.forEach(store => {
+        const icon = categoryEmojis[store.categoryName] || "✨";
+        
+        let starCount = 0;
+        let displayRating = "0.0";
+        if (store.rating && store.rating !== "New" && store.rating !== "0") {
+            let parsedRate = parseFloat(store.rating);
+            if (!isNaN(parsedRate)) {
+                displayRating = parsedRate.toFixed(1);
+                starCount = Math.round(parsedRate);
+            }
+        }
+
+        let starsHtml = '';
+        for (let i = 0; i < 5; i++) {
+            let color = i < starCount ? "gold" : "rgb(185, 190, 189)";
+            starsHtml += `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="${color}" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="border:none;"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>`;
+        }
+
+       htmlContent += `
+            <div class="cont1" style="cursor: pointer;" onclick="window.location.href='store-details.html?id=${store.id}'">
+                <div class="span mb-2">
+                    <a class="a1" href="store-details.html?id=${store.id}" onclick="event.preventDefault();">
+                        <span class="text" style="color: var(--gray-text); border: 2px solid cadetblue; border-radius: 50px; padding: 4px; background-color: lightyellow;">
+                            ${icon} ${store.categoryName}
+                        </span>
+                    </a>
+                </div>
+                <div style="width: fit-content;">
+                    <h3 class="h3" style="margin-top:0;">${store.name}</h3>
+                </div>
+                <div class="review" style="margin-top: 5px;">
+                    ${starsHtml}
+                    <span class="rate-rev" style="font-weight: bold; margin-left: 10px;">${displayRating}</span>
+                </div>
+                <p class="p" style="margin-top: 15px; color: var(--gray-text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
+                    ${store.desc}
+                </p>
+                <div class="location" style="margin-top: 20px; text-decoration: none; color: var(--gray-text);">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin w-4 h-4 text-primary shrink-0" style="margin-bottom: 7px;">
+                        <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <span style="margin-left: 2px;">${store.loc}</span>
+                </div>
+                <hr style="margin-top: 10px;">
+                <div class="social">
+                    <a href="tel:${store.phone}" class="tel" onclick="event.stopPropagation();">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone w-4 h-4">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        <span style="margin-left: 5px; color: white">Call Now</span>
+                    </a>
+                </div>
+            </div>
+            `;
+        });
+
+
+    grid.innerHTML = htmlContent;
+}
+
+function loadApprovedStoresFromFirebase() {
+    if (typeof db === "undefined") {
+        renderAllStores([]);
+        return;
+    }
+
+    db.collection("stores")
+        .where("approved", "==", true)
+        .onSnapshot(snapshot => {
+            const stores = snapshot.docs.map(doc => normalizeStore(doc));
+            allStoresCache = stores; 
+            renderAllStores(stores);
+        }, error => {
+            console.error("Error loading stores from Firebase:", error);
+            renderAllStores([]);
+        });
+}
+
+document.addEventListener('DOMContentLoaded', loadApprovedStoresFromFirebase);
+
+function showNavFavorites() {
+    const sessionStr = localStorage.getItem('fakhama_session');
+    const favBtn = document.getElementById('nav-fav-btn');
+    
+    if (sessionStr && favBtn) {
+        try {
+            const user = JSON.parse(sessionStr);
+            if (user.role === 'customer') {
+                favBtn.style.display = 'flex';
+            }
+        } catch(e) {
+            console.error("Error reading session");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', showNavFavorites);
+
+// --- Search Box Logic ---
+document.addEventListener('DOMContentLoaded', () => {
+    const searchBox = document.getElementById('search-box');
+    const searchForm = document.querySelector('.form-search');
+    
+    searchForm.addEventListener('submit', (e) => {
+        e.preventDefault(); 
+    });
+
+    const dropdown = document.createElement('div');
+    dropdown.id = 'search-results';
+    dropdown.className = 'search-results-dropdown';
+    dropdown.style.display = 'none';
+    searchBox.parentNode.appendChild(dropdown);
+
+    searchBox.addEventListener('input', function() {
+        const query = this.value.toLowerCase().trim();
+        dropdown.innerHTML = '';
+
+        if (query.length === 0) {
+            dropdown.style.display = 'none';
+            return;
+        }
+
+        let allStores = [...allStoresCache];
+
+        const matches = allStores.filter(store => {
+            const storeName = (store.name || "").toLowerCase();
+            const category = (store.categoryName || "").toLowerCase();
+            
+            const keywords = {
+                "furniture stores": ["اثاث", "مفروشات", "كنب", "غرف", "أثاث", "furniture", "furnitures", "store", "stores"],
+                "carpenters": ["نجار", "نجارة", "خشب", "منجرة", "carpenter", "carpenters", "wood"],
+                "blacksmiths": ["حداد", "حدادة", "حديد", "ابواب", "محددة", "blacksmith", "blacksmiths", "iron"],
+                "moving companies": ["نقل", "عفش", "ترحيل", "شركات نقل", "شحن", "moving", "move", "movers", "company", "companies"],
+                "home helpers": ["عمال", "عاملات", "تنظيف", "مساعدات", "خادمات", "home helper", "helpers", "helper", "maid", "maids", "cleaning"],
+                "home services": ["خدمات", "صيانة", "كهرباء", "كهربجي", "مواسرجي", "صيانه", "services", "service", "maintenance", "plumber", "electrician"]
+            };
+
+            const isNameMatch = storeName.includes(query);
+
+            const isCategoryMatch = category.includes(query);
+
+            let isKeywordMatch = false;
+            if (keywords[category]) {
+                isKeywordMatch = keywords[category].some(kw => kw.includes(query) || query.includes(kw));
+            }
+            
+            return isNameMatch || isCategoryMatch || isKeywordMatch;
+        });
+
+        if (matches.length > 0) {
+            matches.forEach(store => {
+                const item = document.createElement('div');
+                item.className = 'search-result-item';
+                
+                const icon = categoryEmojis[store.categoryName] || "✨";
+
+                item.innerHTML = `
+                    <span class="search-result-title">${store.name}</span>
+                    <span class="search-result-category" style="font-size: 12px; color: gray; display: block; margin-top: 2px;">
+                        ${icon} ${store.categoryName}
+                    </span>
+                `;
+                
+                item.addEventListener('click', () => {
+                    window.location.href = `store-details.html?id=${store.id}`;
+                });
+                
+                dropdown.appendChild(item);
+            });
+            dropdown.style.display = 'block';
+        } else {
+            dropdown.innerHTML = '<div style="padding: 12px 20px; color: gray; text-align: center;">No matching results found.</div>';
+            dropdown.style.display = 'block';
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!searchForm.contains(e.target)) {
+            dropdown.style.display = 'none';
+        }
+    });
+});
+
+const currentLocation = window.location.href;
+
+const navItems = document.querySelectorAll('.nav-item');
+
+navItems.forEach(item => {
+    if (item.href === currentLocation) {
+        item.classList.add('active');
+    }
+});
+</script>
+<a href="tips.html" class="floating-tips-btn" title="Home Care Tips">
+    <span class="lamp-icon">💡</span>
+    <span class="lamp-text">Tips</span>
+</a>
+<script src="auth_ui.js"></script>
+<div id="google_translate_element" style="position:absolute; opacity:0; pointer-events:none; z-index:-1;"></div>
+<script src="script.js"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BaytiCare - Furniture Stores</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="index.css">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+main{
+    padding-top: 80px;
+    min-height: 50vh;
+}
+
+.items-add {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 40px;
+    justify-content: center;
+}
+
+.cont1{
+    border: 2px solid none;
+    background-color: #faecec;
+    border-radius: 30px;
+    padding: 25px 20px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-top: 8px solid var(--navbar);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 350px;
+    max-width: 100%;
+    height: 380px; 
+}
+
+.cont1:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.a1{
+    text-decoration: none;
+}
+
+.cont1 .h3 {
+    color: #000000; 
+    font-weight: bold;
+    margin-top: 15px;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.cont1 .h3:hover {
+    color: var(--navbar);
+}
+.cont1 .span{
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+}
+.review{
+    display: flex;
+    flex-wrap: nowrap; 
+    gap: 6px;
+    overflow: hidden; 
+    margin-top: 5px;
+}
+.social .tel{
+    text-decoration: none;
+    color: #000000;
+    border: 2px solid none;
+    background-color: var(--navbar);
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    white-space: nowrap;
+}
+/* /////////////////////////////////// */
+.floating-tips-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 65px;
+    height: 65px;
+    background-color: var(--navbar);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 9999;
+    transition: all 0.3s ease;
+    border: 2px solid white;
+}
+
+.floating-tips-btn:hover {
+    transform: scale(1.1);
+    background-color: #1da8ad;
+    color: white;
+}
+
+.lamp-icon {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.lamp-text {
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+@media (max-width: 500px) {
+    .floating-tips-btn {
+        bottom: 20px;
+        right: 20px;
+        width: 55px;
+        height: 55px;
+    }
+}
+</style>    
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script>
+// ── Firebase init (skip if already done) ──
+if (!window._fbReady) {
+    firebase.initializeApp({
+        apiKey: "AIzaSyD3lvln6AhHHAYdgd-70QuWN9XQzxVYH3Y",
+        authDomain: "bayticare-222ab.firebaseapp.com",
+        projectId: "bayticare-222ab",
+        storageBucket: "bayticare-222ab.firebasestorage.app",
+        messagingSenderId: "933602336408",
+        appId: "1:933602336408:web:1778209b210c8f052ebaed"
+    });
+    window._fbReady = true;
+}
+const db = firebase.firestore();
+</script>
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" href="index.html">
+        <img src="images/logo2-removebg-preview.png" alt="BaytiCare Logo" style="margin-left: 10px;">
+    </a>
+
+    <div class="nb-divider" id="divider-main"></div>
+
+<div class="nav-links" id="nav-links">
+<a class="nav-item" href="furniture-stores.html"><span class="icon">🛋️</span><span class="label">Furniture Stores</span></a>
+<a class="nav-item" href="carpenters.html"><span class="icon">🪚</span><span class="label">Carpenters</span></a>
+<a class="nav-item" href="blacksmiths.html"><span class="icon">⚒️</span><span class="label">Blacksmiths</span></a>
+<a class="nav-item active" href="moving-companies.html"><span class="icon">🚛</span><span class="label">Moving Companies</span></a>
+<a class="nav-item" href="home-helpers.html"><span class="icon">🏠</span><span class="label">Home Helpers</span></a>
+<a class="nav-item" href="home-services.html"><span class="icon">🔧</span><span class="label">Home Services</span></a>
+</div>
+    
+    <div class="right-group">
+        <a href="favorites.html" id="nav-fav-btn" style="text-decoration: none; display: none;">
+    <button class="icon-btn fav-hover" title="My Favorites" style="padding: 5px 10px;">
+        <i class="fa fa-heart" style="font-size: 19px;"></i>
+    </button>
+</a>
+        <button type="button" class="lang-btn" id="langToggle" title="Translate">🌐</button>
+        <button type="button" class="lang-btn" id="darkModeToggle" title="Dark Mode">🌙</button>
+        <a href="login2.html" id="navLoginBtn" style="text-decoration: none;">
+            <button class="icon-btn" style="border: 1px solid none; background-color: rgb(255, 255, 255); color: var(--navbar); padding: 5px; font-weight: bold; width: 60px;">Login</button>
+        </a>
+        <button class="hamburger-btn" id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+    <a class="nav-item-mobile" href="furniture-stores.html"><span>🛋️</span> Furniture Stores</a>
+    <a class="nav-item-mobile" href="carpenters.html"><span>🪚</span> Carpenters</a>
+    <a class="nav-item-mobile" href="blacksmiths.html"><span>⚒️</span> Blacksmiths</a>
+    <a class="nav-item-mobile" href="moving-companies.html"><span>🚛</span> Moving Companies</a>
+    <a class="nav-item-mobile" href="home-helpers.html"><span>🏠</span> Home Helpers</a>
+    <a class="nav-item-mobile" href="home-services.html"><span>🔧</span> Home Services</a>
+</div>
+
+<main>
+
+    <a href="index.html" class="home-btn">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="15 18 9 12 15 6" /><line x1="10" y1="12" x2="100" y2="10" />
+  </svg> Home
+</a>
+
+    <section class="items-add" id="moving-grid">
+        <div id="no-stores-msg" style="display: none; text-align: center; padding: 100px 20px; color: var(--gray-text); width: 100%;">
+          <div style="font-size:48px;margin-bottom:12px">🚛</div>
+          <p style="font-size:16px">No moving companies registered yet.</p>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-col">
+      <div class="footer-logo">
+        <img src="images/logo2-removebg-preview.png" alt="logo" style="width: 140px; height: 90px;">
+      </div>
+      <p class="footer-desc">Your comprehensive guide to all home services. We help you find the best furniture stores, craftsmen, and home service companies in your area.</p>
+    </div>
+
+    <div class="footer-col">
+      <h3 class="footer-title">Categories</h3>
+      <ul class="footer-list">
+        <li><span>🛋️ Furniture Stores</span></li>
+        <li><span>🪚 Carpenters</span></li>
+        <li><span>⚒️ Blacksmiths</span></li>
+        <li><span>🚛 Moving Companies</span></li>
+        <li><span>🏠 Home Helpers</span></li>
+        <li><span>🔧 Home Services</span></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3 class="footer-title">Contact Us</h3>
+      <div class="footer-contact">
+        <p>📧 info@baitak.jo</p>
+        <p>📞 +962 6 000 0000</p>
+      </div>
+    </div>
+  </div>
+  <hr class="footer-divider">
+  <div class="footer-bottom">
+    © 2026 BaytiCare - All rights reserved | Graduation Project
+  </div>
+</footer>
+
+<script src="auth_ui.js"></script>
+<script>
+// ── Hamburger menu ──
+const btn = document.getElementById('hamburger-btn');
+const menu = document.getElementById('mobile-menu');
+if (btn) {
+    btn.addEventListener('click', () => menu.classList.toggle('open'));
+    document.addEventListener('click', (e) => {
+        if (!btn.contains(e.target) && !menu.contains(e.target)) menu.classList.remove('open');
+    });
+}
+
+function showNavFavorites() {
+    const sessionStr = localStorage.getItem('fakhama_session');
+    const favBtn = document.getElementById('nav-fav-btn');
+    if (sessionStr && favBtn) {
+        try {
+            const user = JSON.parse(sessionStr);
+            if (user.role === 'customer') favBtn.style.display = 'flex';
+        } catch(e) {}
+    }
+}
+document.addEventListener('DOMContentLoaded', showNavFavorites);
+
+// ── Render store cards from Firebase ──
+function renderStores(stores) {
+    const grid = document.getElementById('moving-grid');
+    let htmlContent = '';
+
+    if (stores.length === 0) {
+        grid.innerHTML = `
+            <div id="no-stores-msg" style="display: block; text-align: center; padding: 100px 20px; color: var(--gray-text); width: 100%;">
+                <div style="font-size:48px;margin-bottom:12px">🚛</div>
+                <p style="font-size:16px">No moving companies registered yet.</p>
+            </div>`;
+        return;
+    }
+
+    stores.forEach(store => {
+        let starCount = 0;
+        let displayRating = "0.0";
+        
+        if (store.rating && store.rating !== "New" && store.rating !== "0") {
+            let parsedRate = parseFloat(store.rating);
+            if (!isNaN(parsedRate)) {
+                displayRating = parsedRate.toFixed(1);
+                starCount = Math.round(parsedRate);
+            }
+        }
+
+        let starsHtml = '';
+        for (let i = 1; i <= 5; i++) {
+            let color = i <= starCount ? "gold" : "rgb(185, 190, 189)";
+            starsHtml += `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="${color}" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>`;
+        }
+
+        htmlContent += `
+        <div class="cont1" onclick="window.location.href='store-details.html?id=${store.id}'" style="cursor:pointer;">
+            <div>
+                <div class="span mb-2">
+                    <span class="text" style="color:var(--gray-text);border:2px solid cadetblue;border-radius:50px;padding:4px 12px;background-color:lightyellow;font-size:14px;">
+                        🚛 Moving Companies
+                    </span>
+                </div>
+                <h3 class="h3">${store.name}</h3>
+                <div class="review" style="margin-top:8px; display: flex; align-items: center;">
+                    ${starsHtml}
+                    <span style="font-weight:bold;margin-left:8px;">${displayRating}</span>
+                </div>
+                    <p style="margin-top:15px;color:var(--gray-text);font-size:14px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">${store.desc}</p>                <div style="color:var(--gray-text);font-size:14px;display:flex;align-items:center;gap:5px; margin-top: 15px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--navbar);"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    ${store.loc}
+                </div>
+            </div>
+            <hr style="margin-top: 10px;">
+            <div class="social" style="display:flex;align-items:center;gap:10px;">
+                <a href="tel:${store.phone}" class="tel" onclick="event.stopPropagation()" style="flex:1;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    <span style="margin-left:5px; color: white;">Call Now</span>
+                </a>
+            </div>
+        </div>`;
+    });
+
+    grid.innerHTML = '<div id="no-stores-msg" style="display: none; text-align: center; padding: 100px 20px; color: var(--gray-text); width: 100%;"><div style="font-size:48px;margin-bottom:12px">🚛</div><p style="font-size:16px">No moving companies registered yet.</p></div>' + htmlContent;
+}
+
+// ── Load approved stores from Firebase (real-time) ──
+document.addEventListener('DOMContentLoaded', () => {
+    db.collection('stores')
+        .where('approved', '==', true)
+        .onSnapshot(snapshot => {
+            const stores = snapshot.docs
+                .map(doc => {
+                    const d = doc.data();
+                    const cat = (d.category || d.storeSpecialty || d.storeCategory || '').toLowerCase();
+                    return { 
+                        id: doc.id, 
+                        _cat: cat, 
+                        name: d.storeName || d.name || 'Store', 
+                        desc: d.storeDescription || d.description || 'A newly joined service provider on BaytiCare.', 
+                        loc: d.ownerCity || d.city || d.address || 'Amman', 
+                        phone: d.ownerPhone || d.phone || '',
+                        rating: d.rating || d.averageRating || "0.0" 
+                    };
+                })
+                .filter(s => s._cat.includes('moving'));
+                
+            renderStores(stores);
+        }, err => {
+            console.error('Firebase error:', err);
+        });
+});
+</script>
+<script src="script.js"></script>
+<div id="google_translate_element" style="position:absolute; opacity:0; pointer-events:none; z-index:-1;"></div>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<a href="tips.html" class="floating-tips-btn" title="Home Care Tips">
+    <span class="lamp-icon">💡</span>
+    <span class="lamp-text">Tips</span>
+</a>
+</body>
+</html>

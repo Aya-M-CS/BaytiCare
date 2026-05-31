@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Care Tips – BaytiCare</title>
+<link rel="stylesheet" href="index.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+ 
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+:root {
+  --primary-bg: #d1d2d2;
+  --primary-text: #000000;
+  --primary-accent: #8B3DFF;
+  --secondary-accent: #C095FF;
+  --navbar: rgb(22, 136, 140);
+  --navbar2: rgb(93, 50, 7);
+  --marg-top: 50px;
+  --reviews: rgb(91, 94, 93);
+  --gray-text: rgb(77, 82, 81);
+ 
+  /* Tips page specific */
+  --tips-bg: #f0f4f4;
+  --card-bg: #fff;
+  --emergency-red: #c0392b;
+  --emergency-light: #fdf0ef;
+  --emergency-border: #e74c3c;
+  --section-title: #1a4a4d;
+}
+ 
+html { -webkit-tap-highlight-color: transparent; }
+ 
+body {
+  margin: 0; padding: 0;
+  background-color: var(--tips-bg);
+  font-family: 'DM Sans', 'Arial', sans-serif;
+  line-height: 1.6;
+}
+ 
+main { padding-top: 80px; }
+ 
+.break { margin-top: 55px; border: 1.5px solid #575454; }
+ 
+.navbar {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 80px;
+  background: var(--navbar);
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: center;
+  padding: 0 16px; gap: 10px;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+.navbar::-webkit-scrollbar { display: none; }
+.nav-links::-webkit-scrollbar { display: none; }
+ 
+.navbar-brand { display: flex; align-items: center; gap: 6px; min-width: fit-content; text-decoration: none; }
+.nb-divider { width: 1px; height: 36px; background: rgba(255,255,255,0.2); flex-shrink: 0; }
+.navbar-brand img { height: 60px; width: 90px; }
+ 
+.nav-links { display: grid; grid-auto-flow: column; justify-content: center; gap: 15px; overflow-x: auto; }
+ 
+.nav-item {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  color: #e8d8b0; font-size: 13px; cursor: pointer;
+  padding: 6px 8px; border-radius: 6px;
+  white-space: nowrap; text-align: center;
+  transition: background 0.2s;
+  min-width: 60px; border: none; background: none; text-decoration: none;
+}
+.nav-item:hover, .location-btn:hover, .icon-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.nav-item .icon { font-size: 20px; line-height: 1; }
+.nav-item .label { font-size: 15px; font-weight: 500; line-height: 1.3; }
+ 
+.right-group {
+  display: flex; align-items: center; justify-content: flex-end;
+  background: none; border: none; color: #ebdebd;
+  cursor: pointer; padding: 7px 17px; border-radius: 6px;
+  width: auto; height: 34px; gap: 5px; font-size: 13px; flex-direction: row;
+}
+ 
+.icon-btn {
+  background: none; border: none; color: #ebdebd;
+  cursor: pointer; padding: 7px 17px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  width: auto; height: 34px; gap: 5px; font-size: 13px;
+}
+.icon-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+ 
+.custom-select { position: relative; cursor: pointer; color: #ebdebd; }
+.custom-select .options {
+  display: none; position: absolute; top: 100%;
+  border: 2px solid rgb(16,71,103);
+  background: var(--navbar); border-radius: 8px; padding: 5px 0; z-index: 999;
+}
+.custom-select .options div { padding: 8px 10px; color: #ebdebd; }
+.custom-select .options div:hover { background: rgba(255,255,255,0.1); }
+.custom-select .options.open { display: block; }
+ 
+.hamburger-btn {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  background: none; border: none; cursor: pointer;
+  padding: 7px; border-radius: 6px; margin-left: 10px;
+}
+.hamburger-btn:hover { background: rgba(255,255,255,0.1); }
+.hamburger-btn span { display: block; width: 22px; height: 2.5px; background: #e8d8b0; border-radius: 3px; }
+ 
+.mobile-menu {
+  display: none; position: fixed; top: 80px; left: 0; width: 100%;
+  background: var(--navbar); flex-direction: column; z-index: 999;
+  padding: 12px 16px; border-top: 1px solid rgba(255,255,255,0.15);
+  grid-template-columns: 1fr 1fr; gap: 0;
+}
+.mobile-menu.open { display: grid; }
+.nav-item-mobile {
+  background: none; border: none; color: #e8d8b0; font-size: 15px;
+  padding: 14px 20px; text-align: left; cursor: pointer;
+  display: flex; align-items: center; gap: 10px;
+  border-radius: 6px; text-decoration: none;
+}
+.nav-item-mobile:hover { background: rgba(255,255,255,0.1); color: #fff; }
+ 
+@media (max-width: 1100px) {
+  .navbar { grid-template-columns: auto 1fr auto; }
+  .nb-divider { display: none; }
+  .nav-links { display: none; }
+  .hamburger-btn { display: flex; }
+  .navbar { grid-template-columns: auto auto; }
+}
+ 
+.footer { background-color: var(--navbar); margin-top: 100px; padding: 40px 30px 30px; }
+.footer-container {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px; max-width: 1200px; margin: 0 auto;
+}
+.footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.footer-desc { color: rgba(255,255,255,0.75); font-size: 16px; line-height: 1.7; }
+.footer-title { color: #ffffff; font-size: 25px; font-weight: bold; margin-bottom: 16px; }
+.footer-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.footer-list li span { color: rgba(255,255,255,0.75); font-size: 15px; cursor: pointer; transition: color 0.2s; }
+.footer-list li span:hover { color: #fff; }
+.footer-contact { display: flex; flex-direction: column; gap: 3px; font-size: 15px; color: rgba(255,255,255,0.85); margin-bottom: 20px; }
+.footer-divider { border: none; border-top: 2px solid rgba(255,255,255,0.6); margin: 30px auto; max-width: 1200px; }
+.footer-bottom { text-align: center; font-size: 14px; color: rgba(255,255,255,0.6); padding-bottom: 10px; }
+ 
+@media (max-width: 768px) {
+  .footer-container { grid-template-columns: 1fr; gap: 30px; }
+}
+ 
+.tips-hero {
+  background: linear-gradient(135deg, #0f4a4d 0%, #16888c 50%, #1da8ad 100%);
+  padding: 70px 40px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.tips-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.tips-hero-inner { position: relative; max-width: 700px; margin: 0 auto; height: 160px;}
+.tips-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  color: #fff; font-weight: 700; margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.emergency-banner {
+  background: var(--emergency-light);
+  border-left: 6px solid var(--emergency-border);
+  border-radius: 0;
+  padding: 24px 40px;
+  display: flex; align-items: flex-start; gap: 20px;
+  max-width: 100%;
+}
+.emergency-icon {
+  font-size: 2.5rem; flex-shrink: 0; margin-top: 2px;
+}
+.emergency-banner h2 {
+  font-family: 'Playfair Display', serif;
+  color: var(--emergency-red); font-size: 1.4rem; margin-bottom: 8px;
+}
+.emergency-banner p { color: #6b1a1a; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+.emergency-steps {
+  display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px;
+}
+.e-step {
+  background: #fff; border: 1.5px solid #e74c3c;
+  border-radius: 8px; padding: 8px 14px;
+  font-size: 13px; color: #7a1515; font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+}
+.e-step .num {
+  background: var(--emergency-red); color: #fff;
+  border-radius: 50%; width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+ 
+.quick-nav {
+  background: #fff; border-bottom: 1px solid #dde6e6;
+  padding: 0 40px; position: sticky; top: 80px; z-index: 100;
+  overflow-x: auto; white-space: nowrap;
+  box-shadow: 0 2px 12px rgba(22,136,140,0.08);
+}
+.quick-nav::-webkit-scrollbar { height: 3px; }
+.quick-nav::-webkit-scrollbar-thumb { background: var(--navbar); border-radius: 3px; }
+.quick-nav-inner { display: flex; gap: 4px; padding: 0; justify-content: center; }
+.qnav-item {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 14px 18px; border: none; background: none;
+  color: var(--gray-text); font-size: 14px; font-weight: 500;
+  cursor: pointer; white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+}
+.qnav-item:hover { color: var(--navbar); border-bottom-color: var(--navbar); }
+.qnav-item.active { color: var(--navbar); border-bottom-color: var(--navbar); font-weight: 600; }
+ 
+.tips-content { max-width: 1200px; margin: 0 auto; padding: 50px 30px; }
+ 
+.cat-section { margin-bottom: 70px; scroll-margin-top: 145px; }
+.cat-header {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 28px; padding-bottom: 16px;
+  border-bottom: 2px solid #dde6e6;
+}
+.cat-icon-wrap {
+  width: 56px; height: 56px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; flex-shrink: 0;
+}
+.cat-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem; color: var(--section-title); font-weight: 700;
+  margin: 0;
+}
+.cat-header .cat-subtitle { color: var(--gray-text); font-size: 0.9rem; margin-top: 2px; }
+ 
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+ 
+.tip-card {
+  background: #fff; border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border-top: 4px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+.tip-card::after {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 80px; height: 80px;
+  border-radius: 0 16px 0 80px;
+  opacity: 0.06;
+  transition: opacity 0.2s;
+}
+.tip-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.11); }
+.tip-card:hover::after { opacity: 0.12; }
+ 
+.tip-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.tip-emoji { font-size: 1.6rem; }
+.tip-title { font-weight: 700; font-size: 1rem; color: #1a2e2f; line-height: 1.3; }
+ 
+.tip-body { color: var(--gray-text); font-size: 0.9rem; line-height: 1.65; }
+.tip-body ul { padding-left: 18px; margin: 8px 0 0; }
+.tip-body ul li { margin-bottom: 5px; }
+ 
+.tip-tag {
+  display: inline-block; margin-top: 14px;
+  padding: 3px 10px; border-radius: 50px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+ 
+.tip-card.emergency {
+  border-top-color: #e74c3c;
+  background: linear-gradient(to bottom right, #fff 80%, #fdf0ef);
+}
+.tip-card.emergency::after { background: #e74c3c; }
+.tip-card.emergency .tip-tag { background: #fde8e8; color: #c0392b; }
+ 
+.tip-card.plumbing { border-top-color: #16888c; }
+.tip-card.plumbing::after { background: #16888c; }
+.tip-card.plumbing .tip-tag { background: #e0f4f4; color: #0a5a5d; }
+ 
+.tip-card.electrical { border-top-color: #f39c12; }
+.tip-card.electrical::after { background: #f39c12; }
+.tip-card.electrical .tip-tag { background: #fef5e1; color: #7d5c00; }
+ 
+.tip-card.carpentry { border-top-color: #6d4c41; }
+.tip-card.carpentry::after { background: #6d4c41; }
+.tip-card.carpentry .tip-tag { background: #f5ece8; color: #4a2c22; }
+ 
+.tip-card.blacksmith { border-top-color: #546e7a; }
+.tip-card.blacksmith::after { background: #546e7a; }
+.tip-card.blacksmith .tip-tag { background: #eceff1; color: #2e4550; }
+ 
+.tip-card.moving { border-top-color: #5c6bc0; }
+.tip-card.moving::after { background: #5c6bc0; }
+.tip-card.moving .tip-tag { background: #eef0fb; color: #2c3a8a; }
+ 
+.tip-card.helpers { border-top-color: #2e7d32; }
+.tip-card.helpers::after { background: #2e7d32; }
+.tip-card.helpers .tip-tag { background: #e8f5e9; color: #1a4d1e; }
+ 
+.tip-card.furniture { border-top-color: #8B3DFF; }
+.tip-card.furniture::after { background: #8B3DFF; }
+.tip-card.furniture .tip-tag { background: #f3edff; color: #4a0daa; }
+ 
+.bg-teal { background: #e0f4f4; }
+.bg-yellow { background: #fef5e1; }
+.bg-brown { background: #f5ece8; }
+.bg-slate { background: #eceff1; }
+.bg-indigo { background: #eef0fb; }
+.bg-green { background: #e8f5e9; }
+.bg-purple { background: #f3edff; }
+.bg-red { background: #fde8e8; }
+ 
+.cta-strip {
+  background: linear-gradient(135deg, #0f4a4d, #16888c);
+  border-radius: 20px; padding: 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 24px; flex-wrap: wrap;
+  margin-top: 30px;
+}
+.cta-strip h3 {
+  font-family: 'Playfair Display', serif;
+  color: #fff; font-size: 1.5rem; margin-bottom: 6px;
+}
+.cta-strip p { color: rgba(255,255,255,0.8); font-size: 0.95rem; margin: 0; }
+.cta-btn {
+  background: #fff; color: var(--navbar);
+  font-weight: 700; font-size: 15px;
+  padding: 13px 28px; border-radius: 50px; border: none;
+  cursor: pointer; white-space: nowrap;
+  transition: 0.2s;
+  text-decoration: none; display: inline-block;
+}
+.cta-btn:hover { background: #e0f4f4; color: #0a4a4d; }
+ 
+.checklist-section {
+  background: #fff; border-radius: 20px;
+  padding: 36px; margin-bottom: 50px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+}
+.checklist-section h2 {
+  font-family: 'Playfair Display', serif;
+  color: var(--section-title); font-size: 1.5rem; margin-bottom: 8px;
+}
+.checklist-section > p { color: var(--gray-text); margin-bottom: 24px; }
+.seasons-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.season-col h4 { font-weight: 700; font-size: 1rem; margin-bottom: 12px; color: #1a2e2f; }
+.season-col ul { list-style: none; padding: 0; }
+.season-col ul li {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 0.88rem; color: var(--gray-text);
+  padding: 6px 0; border-bottom: 1px solid #f0f0f0;
+}
+.season-col ul li:last-child { border-bottom: none; }
+.season-col ul li::before {
+  content: '✓'; color: var(--navbar);
+  font-weight: 700; flex-shrink: 0; margin-top: 1px;
+}
+ 
+@media (max-width: 768px) {
+  .tips-hero { padding: 50px 20px 40px; }
+  .emergency-banner { padding: 20px; flex-direction: column; }
+  .quick-nav { padding: 0 16px; }
+  .tips-content { padding: 30px 16px; }
+  .tips-grid { grid-template-columns: 1fr; }
+  .cta-strip { text-align: center; justify-content: center; }
+  .cat-header h2 { font-size: 1.35rem; }
+}
+/* ////////////////////////////////////////// */
+.floating-tips-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 65px;
+    height: 65px;
+    background-color: var(--navbar);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 9999;
+    transition: all 0.3s ease;
+    border: 2px solid white;
+}
+
+.floating-tips-btn:hover {
+    transform: scale(1.1);
+    background-color: #1da8ad;
+    color: white;
+}
+
+.lamp-icon {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.lamp-text {
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+@media (max-width: 500px) {
+    .floating-tips-btn {
+        bottom: 20px;
+        right: 20px;
+        width: 55px;
+        height: 55px;
+    }
+}
+
+
+body.dark-mode {
+    --tips-bg: #1a1a1a;
+    --card-bg: #2c2c2c;
+    --emergency-light: #3a1c1c;
+    --emergency-red: #ff6b6b;
+    --section-title: #ffffff;
+}
+
+body.dark-mode .tip-card,
+body.dark-mode .checklist-section,
+body.dark-mode .quick-nav,
+body.dark-mode .e-step {
+    background-color: var(--card-bg) !important;
+    border-color: #444 !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
+}
+
+body.dark-mode .tip-title,
+body.dark-mode .checklist-section h2,
+body.dark-mode .season-col h4,
+body.dark-mode .cat-header h2 {
+    color: #ffffff !important;
+}
+
+body.dark-mode .cat-header .cat-subtitle,
+body.dark-mode .tip-body,
+body.dark-mode .season-col ul li {
+    color: var(--secondary-text) !important;
+}
+
+body.dark-mode .season-col ul li {
+    border-bottom-color: #444 !important;
+}
+
+body.dark-mode .emergency-banner {
+    background-color: var(--emergency-light) !important;
+    border-left-color: var(--emergency-red) !important;
+}
+
+body.dark-mode .emergency-banner h2 {
+    color: var(--emergency-red) !important;
+}
+
+body.dark-mode .emergency-banner p {
+    color: #ffcccc !important;
+}
+
+body.dark-mode .e-step {
+    background-color: #2c2c2c !important;
+    color: #ff9999 !important;
+    border-color: #6a2a2a !important;
+}
+
+body.dark-mode .quick-nav {
+    border-bottom-color: #333 !important;
+    background-color: var(--card-bg) !important;
+}
+
+body.dark-mode .qnav-item {
+    color: #aaaaaa !important;
+}
+
+body.dark-mode .qnav-item.active,
+body.dark-mode .qnav-item:hover {
+    color: #1da8ad !important;
+    border-bottom-color: #1da8ad !important;
+}
+
+body.dark-mode .tip-card.emergency .tip-tag { background: #5c2018 !important; color: #ff8a80 !important; }
+body.dark-mode .tip-card.plumbing .tip-tag { background: #0f3d3f !important; color: #84ffff !important; }
+body.dark-mode .tip-card.electrical .tip-tag { background: #4d3a14 !important; color: #ffe57f !important; }
+body.dark-mode .tip-card.carpentry .tip-tag { background: #3d2a23 !important; color: #ffccbc !important; }
+body.dark-mode .tip-card.blacksmith .tip-tag { background: #263238 !important; color: #b0bec5 !important; }
+body.dark-mode .tip-card.moving .tip-tag { background: #283593 !important; color: #8c9eff !important; }
+body.dark-mode .tip-card.helpers .tip-tag { background: #1b5e20 !important; color: #b9f6ca !important; }
+body.dark-mode .tip-card.furniture .tip-tag { background: #311b92 !important; color: #b388ff !important; }
+
+body.dark-mode .bg-teal { background: #0f3d3f !important; }
+body.dark-mode .bg-yellow { background: #4d3a14 !important; }
+body.dark-mode .bg-brown { background: #3d2a23 !important; }
+body.dark-mode .bg-slate { background: #263238 !important; }
+body.dark-mode .bg-indigo { background: #283593 !important; }
+body.dark-mode .bg-green { background: #1b5e20 !important; }
+body.dark-mode .bg-purple { background: #311b92 !important; }
+body.dark-mode .bg-red { background: #5c2018 !important; }
+
+body.dark-mode .cta-strip {
+    background: linear-gradient(135deg, #112a2b, #0d4648) !important;
+}
+body.dark-mode .cta-btn {
+    background-color: #1da8ad !important;
+    color: white !important;
+}
+body.dark-mode .cta-btn:hover {
+    background-color: #16888c !important;
+}
+body.dark-mode .tip-card.emergency {
+    background: linear-gradient(to bottom right, var(--card-bg) 80%, #3a1c1c) !important;
+}
+body.dark-mode ::selection {
+    background-color: var(--navbar) !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode ::-moz-selection {
+    background-color: var(--navbar) !important;
+    color: #ffffff !important;
+}
+body.dark-mode #auth-section > div {
+    background-color: var(--card-bg) !important; 
+    border: 1px solid #444 !important;
+}
+
+body.dark-mode #auth-section span {
+    color: #ffffff !important;
+}
+</style>
+</style>
+</head>
+ 
+<body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+  crossorigin="anonymous"></script>
+ 
+<nav class="navbar">
+<a class="navbar-brand" href="index.html">
+<img src="images/logo2-removebg-preview.png" alt="BaytiCare Logo" style="margin-left: 10px;">
+</a>
+
+<div class="nb-divider" id="divider-main"></div>
+
+<div class="nav-links" id="nav-links">
+<a class="nav-item" href="furniture-stores.html"><span class="icon">🛋️</span><span class="label">Furniture Stores</span></a>
+<a class="nav-item" href="carpenters.html"><span class="icon">🪚</span><span class="label">Carpenters</span></a>
+<a class="nav-item" href="blacksmiths.html"><span class="icon">⚒️</span><span class="label">Blacksmiths</span></a>
+<a class="nav-item" href="moving-companies.html"><span class="icon">🚛</span><span class="label">Moving Companies</span></a>
+<a class="nav-item" href="home-helpers.html"><span class="icon">🏠</span><span class="label">Home Helpers</span></a>
+<a class="nav-item" href="home-services.html"><span class="icon">🔧</span><span class="label">Home Services</span></a>
+<!-- <a class="nav-item" href="home-tips.html" style="border-bottom: 3px solid #fff;"><span class="icon">💡</span><span class="label">Home Tips</span></a> -->
+</div>
+<div class="right-group">
+
+<a href="favorites.html" id="nav-fav-btn" style="text-decoration: none; display: none;">
+    <button class="icon-btn fav-hover" title="My Favorites" style="padding: 5px 10px;">
+        <i class="fa fa-heart" style="font-size: 19px;"></i>
+    </button>
+</a>
+
+<button type="button" class="lang-btn" id="langToggle">🌐</button>
+<button type="button" class="lang-btn" id="darkModeToggle" title="Dark Mode">🌙</button>
+<div id="auth-section">
+    <a href="login2.html" style="text-decoration: none;">
+        <button class="icon-btn" style="border: 1px solid none; background-color: rgb(255, 235, 239); color: var(--navbar); padding: 5px; font-weight: bold; width: 60px;">Login</button>
+    </a>
+</div>
+<button class="hamburger-btn" id="hamburger-btn">
+
+    <span></span>
+<span></span>
+<span></span>
+</button>
+</div>
+</nav>
+ 
+<div class="mobile-menu" id="mobile-menu">
+  <a class="nav-item-mobile" href="furniture-stores.html"><span>🛋️</span> Furniture Stores</a>
+  <a class="nav-item-mobile"><span>🪚</span> Carpenters</a>
+  <a class="nav-item-mobile"><span>⚒️</span> Blacksmiths</a>
+  <a class="nav-item-mobile"><span>🚛</span> Moving Companies</a>
+  <a class="nav-item-mobile"><span>🏠</span> Home Helpers</a>
+</div>
+ 
+<main>
+ 
+  <div class="tips-hero">
+    <div class="tips-hero-inner">
+      <h1>Home Care Tips & Emergency Guide</h1>
+    </div>
+  </div>
+ 
+  <div class="emergency-banner">
+    <div class="emergency-icon">🚨</div>
+    <div>
+      <h2>Emergency First Steps — Before the Technician Arrives</h2>
+      <p>A water leak, power outage, or gas smell at home can be alarming. Knowing what to do in the first few minutes can prevent serious damage. Follow these universal steps first, then scroll to the relevant section below for detailed guidance.</p>
+      <div class="emergency-steps">
+        <div class="e-step"><span class="num">1</span> Stay calm — don't panic</div>
+        <div class="e-step"><span class="num">2</span> Identify the type of emergency</div>
+        <div class="e-step"><span class="num">3</span> Shut off the source (water / electricity)</div>
+        <div class="e-step"><span class="num">4</span> Keep family away from danger zone</div>
+        <div class="e-step"><span class="num">5</span> Document damage with photos</div>
+      </div>
+    </div>
+  </div>
+ 
+  <nav class="quick-nav">
+    <div class="quick-nav-inner">
+      <button class="qnav-item active" onclick="goToSection('electrical', this)">⚡ Electrical</button>
+      <button class="qnav-item" onclick="goToSection('plumbing', this)">🔩 Plumbing</button>
+      <button class="qnav-item" onclick="goToSection('carpentry', this)">🪚 Carpentry</button>
+      <button class="qnav-item" onclick="goToSection('blacksmith', this)">⚒️ Blacksmithing</button>
+      <button class="qnav-item" onclick="goToSection('moving', this)">🚛 Moving</button>
+      <button class="qnav-item" onclick="goToSection('helpers', this)">🏠 Home Helpers</button>
+      <button class="qnav-item" onclick="goToSection('furniture', this)">🛋️ Furniture</button>
+      <button class="qnav-item" onclick="goToSection('seasonal', this)">📅 Seasonal Checklist</button>
+    </div>
+  </nav>
+ 
+  <div class="tips-content">
+ 
+    <section class="cat-section" id="electrical">
+      <div class="cat-header">
+        <div class="cat-icon-wrap bg-yellow">⚡</div>
+        <div>
+          <h2>Electrical</h2>
+          <p class="cat-subtitle">Power outages, tripped breakers, wiring, and electrical safety</p>
+        </div>
+      </div>
+      <div class="tips-grid">
+
+        <div class="tip-card emergency">
+          <div class="tip-card-header">
+            <span class="tip-emoji">🔥</span>
+            <div class="tip-title">Burning Smell or Sparking Outlet</div>
+          </div>
+          <div class="tip-body">
+            This is a fire hazard — act immediately:
+            <ul>
+              <li>Turn off the main breaker in your electrical panel right away.</li>
+              <li>Do NOT use the outlet or switch until inspected by a professional.</li>
+              <li>If you see flames, leave the house and call the fire department.</li>
+              <li>Never pour water on an electrical fire — use a dry powder extinguisher.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">🚨 Emergency</span>
+        </div>
+ 
+        <div class="tip-card electrical">
+          <div class="tip-card-header">
+            <span class="tip-emoji">🔌</span>
+            <div class="tip-title">Electrical Safety at Home</div>
+          </div>
+          <div class="tip-body">
+            Habits that prevent dangerous situations:
+            <ul>
+              <li>Never overload outlets with multi-socket adapters — especially with high-wattage appliances.</li>
+              <li>Replace frayed or cracked cords immediately.</li>
+              <li>Use childproof outlet covers if you have young children.</li>
+              <li>Keep all electrical panels accessible and labeled clearly.</li>
+              <li>Install smoke detectors — test them monthly.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">⚠️ Safety</span>
+        </div>
+ 
+        <div class="tip-card electrical">
+          <div class="tip-card-header">
+            <span class="tip-emoji">💡</span>
+            <div class="tip-title">Before the Electrician Arrives</div>
+          </div>
+          <div class="tip-body">
+            Help your electrician diagnose the issue faster:
+            <ul>
+              <li>Write down what happened: what you were using, when it stopped, any sounds or smells.</li>
+              <li>Note which specific rooms or outlets are affected.</li>
+              <li>Turn off the main breaker if any hazard is suspected.</li>
+              <li>Clear access to the electrical panel and affected areas.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">💡 Helpful</span>
+        </div>
+ 
+      </div>
+    </section>
+
+    <section class="cat-section" id="plumbing">
+      <div class="cat-header">
+        <div class="cat-icon-wrap bg-teal">🔩</div>
+        <div>
+          <h2>Plumbing</h2>
+          <p class="cat-subtitle">Leaks, blocked drains, water pressure issues, and emergency shutoffs</p>
+        </div>
+      </div>
+      <div class="tips-grid">
+ 
+        <div class="tip-card emergency">
+          <div class="tip-card-header">
+            <span class="tip-emoji">💧</span>
+            <div class="tip-title">Water Leak Emergency — What to Do First</div>
+          </div>
+          <div class="tip-body">
+            When a pipe bursts or you notice a leak, act immediately:
+            <ul>
+              <li><strong>Find your main shutoff valve</strong> — usually near the water meter or under the kitchen sink — and turn it off immediately.</li>
+              <li>Open all cold-water taps to drain remaining water from pipes.</li>
+              <li>Place towels or buckets to limit water damage to flooring and furniture.</li>
+              <li>Turn off electrical switches in the affected room — water and electricity are lethal together.</li>
+              <li>Take photos of the damage before calling a plumber.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">🚨 Emergency</span>
+        </div>
+ 
+        <div class="tip-card plumbing">
+          <div class="tip-card-header">
+            <span class="tip-emoji">🚿</span>
+            <div class="tip-title">Low Water Pressure — Common Causes</div>
+          </div>
+          <div class="tip-body">
+            Before calling a plumber, check these yourself:
+            <ul>
+              <li>Clean faucet aerators — unscrew and soak in vinegar overnight.</li>
+              <li>Check the main shutoff valve is fully open.</li>
+              <li>Look for visible pipe kinks under sinks.</li>
+              <li>If multiple outlets are affected, the issue may be with your building supply — contact your landlord or municipality first.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">💡 Maintenance</span>
+        </div>
+
+        <div class="tip-card plumbing">
+          <div class="tip-card-header">
+            <span class="tip-emoji">🔧</span>
+            <div class="tip-title">Routine Plumbing Maintenance</div>
+          </div>
+          <div class="tip-body">
+            Monthly and annual habits to avoid major problems:
+            <ul>
+              <li>Check under all sinks for drips every month.</li>
+              <li>Flush water heater sediment annually.</li>
+              <li>Never pour cooking grease or coffee grounds down drains.</li>
+              <li>Know where your main shutoff valve is <em>before</em> an emergency.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">🗓️ Preventive</span>
+        </div>
+ 
+      </div>
+    </section>
+ 
+    <section class="cat-section" id="carpentry">
+      <div class="cat-header">
+        <div class="cat-icon-wrap bg-brown">🪚</div>
+        <div>
+          <h2>Carpentry</h2>
+          <p class="cat-subtitle">Wood care, door fixes, furniture repairs, and kitchen cabinets</p>
+        </div>
+      </div>
+      <div class="tips-grid">
+
+        <div class="tip-card carpentry">
+          <div class="tip-card-header">
+            <span class="tip-emoji">🪵</span>
+            <div class="tip-title">Protecting Wood Furniture</div>
+          </div>
+          <div class="tip-body">
+            Extend the life of your wooden pieces:
+            <ul>
+              <li>Keep wood away from direct sunlight to prevent fading and cracking.</li>
+              <li>Use coasters for drinks — moisture rings are hard to remove.</li>
+              <li>Polish with a damp cloth (not wet) and dry immediately.</li>
+              <li>Apply beeswax or furniture oil every 6 months for solid wood.</li>
+              <li>Fill small scratches with a matching wood touch-up marker.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">🛡️ Preventive</span>
+        </div>
+ 
+        <div class="tip-card carpentry">
+          <div class="tip-card-header">
+            <span class="tip-emoji">🍳</span>
+            <div class="tip-title">Kitchen Cabinet Maintenance</div>
+          </div>
+          <div class="tip-body">
+            Kitchens take the most abuse in any home:
+            <ul>
+              <li>Tighten loose hinges with a screwdriver before they cause door misalignment.</li>
+              <li>Clean cabinet interiors quarterly — moisture and grease cause swelling.</li>
+              <li>Avoid hanging wet dish towels on cabinet doors — they warp the wood over time.</li>
+              <li>If a hinge is broken, replace it quickly — a misaligned door can damage the whole frame.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">🗓️ Maintenance</span>
+        </div>
+ 
+        <div class="tip-card carpentry">
+          <div class="tip-card-header">
+            <span class="tip-emoji">🔨</span>
+            <div class="tip-title">When to Call a Carpenter</div>
+          </div>
+          <div class="tip-body">
+            Some jobs are always best left to professionals:
+            <ul>
+              <li>Structural damage to door or window frames.</li>
+              <li>Warped or swollen kitchen units that won't close properly.</li>
+              <li>Custom built-in shelving, closets, or partitions.</li>
+              <li>Stairs with loose steps or broken banisters — this is a safety issue.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">👷 Professional</span>
+        </div>
+ 
+      </div>
+    </section>
+ 
+    <section class="cat-section" id="blacksmith">
+      <div class="cat-header">
+        <div class="cat-icon-wrap bg-slate">⚒️</div>
+        <div>
+          <h2>Blacksmithing & Metal Work</h2>
+          <p class="cat-subtitle">Iron doors, gates, railings, window grilles, and fence maintenance</p>
+        </div>
+      </div>
+      <div class="tips-grid">
+ 
+        <div class="tip-card blacksmith">
+          <div class="tip-card-header">
+            <span class="tip-emoji">🦀</span>
+            <div class="tip-title">Dealing with Rust on Metal</div>
+          </div>
+          <div class="tip-body">
+            Early rust treatment prevents expensive replacements:
+            <ul>
+              <li>For surface rust, scrub with steel wool or a wire brush.</li>
+              <li>Apply a rust converter spray — it chemically transforms rust into a protective layer.</li>
+              <li>Once dry, apply anti-rust paint to seal the surface.</li>
+              <li>Inspect exterior iron gates and railings every spring, especially in humid climates.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">🛡️ Preventive</span>
+        </div>
+ 
+        <div class="tip-card blacksmith">
+          <div class="tip-card-header">
+            <span class="tip-emoji">🚪</span>
+            <div class="tip-title">Iron Door and Gate Care</div>
+          </div>
+          <div class="tip-body">
+            Keep your iron doors operating smoothly and looking sharp:
+            <ul>
+              <li>Lubricate hinges with grease or WD-40 every 6 months.</li>
+              <li>Check gate locking mechanisms annually — misalignment causes lock failures.</li>
+              <li>Repaint iron surfaces every 2–3 years to prevent corrosion.</li>
+              <li>Check that welds and joints are solid — cracked welds near children's spaces are dangerous.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">🗓️ Maintenance</span>
+        </div>
+ 
+        <div class="tip-card blacksmith">
+          <div class="tip-card-header">
+            <span class="tip-emoji">🏗️</span>
+            <div class="tip-title">Window Grilles & Railings</div>
+          </div>
+          <div class="tip-body">
+            Safety checks you should do yourself:
+            <ul>
+              <li>Push and shake stair railings — any movement means loose anchor bolts.</li>
+              <li>Check that window grille bars are still parallel and not bent — bent bars can create gaps unsafe for children.</li>
+              <li>Look for paint bubbling, which indicates rust forming underneath.</li>
+              <li>Never DIY weld or cut metal railing — call a blacksmith for structural repairs.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">⚠️ Safety</span>
+        </div>
+ 
+      </div>
+    </section>
+ 
+    <section class="cat-section" id="moving">
+      <div class="cat-header">
+        <div class="cat-icon-wrap bg-indigo">🚛</div>
+        <div>
+          <h2>Moving Companies</h2>
+          <p class="cat-subtitle">Smart packing, furniture protection, and stress-free relocation</p>
+        </div>
+      </div>
+      <div class="tips-grid">
+ 
+        <div class="tip-card moving">
+          <div class="tip-card-header">
+            <span class="tip-emoji">📦</span>
+            <div class="tip-title">Packing Smart — Before Moving Day</div>
+          </div>
+          <div class="tip-body">
+            Preparation is everything:
+            <ul>
+              <li>Start packing 2–3 weeks early — pack one room at a time.</li>
+              <li>Label every box with the room it belongs to AND a short contents list.</li>
+              <li>Use clothing and towels to wrap fragile items instead of wasting bubble wrap.</li>
+              <li>Pack a "First Night Box" — essentials you'll need immediately at the new place.</li>
+              <li>Photograph the back of electronics before disconnecting cables.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">📋 Planning</span>
+        </div>
+ 
+        <div class="tip-card moving">
+          <div class="tip-card-header">
+            <span class="tip-emoji">🛋️</span>
+            <div class="tip-title">Protecting Large Furniture</div>
+          </div>
+          <div class="tip-body">
+            Prevent scratches, dents, and fabric damage during the move:
+            <ul>
+              <li>Wrap sofas and mattresses in plastic sheeting or protective covers.</li>
+              <li>Disassemble beds, shelves, and tables when possible — keep all screws in labeled bags.</li>
+              <li>Use moving blankets on corners and glass surfaces.</li>
+              <li>Measure doorways <em>before</em> moving day — knowing what fits where saves hours.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">🛡️ Protective</span>
+        </div>
+ 
+        <div class="tip-card moving">
+          <div class="tip-card-header">
+            <span class="tip-emoji">✅</span>
+            <div class="tip-title">On Moving Day Checklist</div>
+          </div>
+          <div class="tip-body">
+            Don't leave until you've done this:
+            <ul>
+              <li>Check every room, cabinet, and closet — including roof storage.</li>
+              <li>Take meter readings (water, electricity) at both old and new homes.</li>
+              <li>Return all keys, remote controls, and parking tags.</li>
+              <li>Update your address with banks, subscriptions, and government records.</li>
+              <li>Make sure utilities are live at the new home before you arrive.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">✅ Checklist</span>
+        </div>
+ 
+      </div>
+    </section>
+ 
+    <section class="cat-section" id="helpers">
+      <div class="cat-header">
+        <div class="cat-icon-wrap bg-green">🏠</div>
+        <div>
+          <h2>Home Helpers & Cleaning</h2>
+          <p class="cat-subtitle">Housekeeping routines, hygiene, and working with domestic staff</p>
+        </div>
+      </div>
+      <div class="tips-grid">
+ 
+        <div class="tip-card helpers">
+          <div class="tip-card-header">
+            <span class="tip-emoji">🧹</span>
+            <div class="tip-title">Daily & Weekly Cleaning Routine</div>
+          </div>
+          <div class="tip-body">
+            Structure keeps a home consistently clean:
+            <ul>
+              <li><strong>Daily:</strong> Wipe kitchen surfaces, wash dishes, sweep high-traffic floors.</li>
+              <li><strong>Weekly:</strong> Mop floors, vacuum sofas and rugs, clean bathrooms, wipe mirrors.</li>
+              <li><strong>Monthly:</strong> Descale taps, clean behind appliances, wipe baseboards.</li>
+              <li>Keep a small cleaning caddy per floor — it eliminates trips to fetch supplies.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">🗓️ Routine</span>
+        </div>
+ 
+        <div class="tip-card helpers">
+          <div class="tip-card-header">
+            <span class="tip-emoji">🧴</span>
+            <div class="tip-title">Natural Cleaning Alternatives</div>
+          </div>
+          <div class="tip-body">
+            Effective and budget-friendly homemade cleaners:
+            <ul>
+              <li><strong>All-purpose spray:</strong> Water + white vinegar + few drops of dish soap.</li>
+              <li><strong>Limescale remover:</strong> Half lemon rubbed on taps, left for 10 minutes.</li>
+              <li><strong>Oven degreaser:</strong> Baking soda paste + vinegar spray.</li>
+              <li><strong>Fabric freshener:</strong> Diluted fabric softener in a spray bottle.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">🌿 Natural</span>
+        </div>
+ 
+        <div class="tip-card helpers">
+          <div class="tip-card-header">
+            <span class="tip-emoji">👩‍👧</span>
+            <div class="tip-title">Working with Domestic Staff</div>
+          </div>
+          <div class="tip-body">
+            Set yourself and your helper up for success:
+            <ul>
+              <li>Create a written task list with priorities — don't assume shared expectations.</li>
+              <li>Provide necessary cleaning products and tools on day one.</li>
+              <li>Schedule a weekly check-in to give feedback and discuss any issues.</li>
+              <li>Store important documents and valuables securely — this protects both parties.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">💼 Management</span>
+        </div>
+ 
+      </div>
+    </section>
+ 
+    <section class="cat-section" id="furniture">
+      <div class="cat-header">
+        <div class="cat-icon-wrap bg-purple">🛋️</div>
+        <div>
+          <h2>Furniture Stores & Purchasing</h2>
+          <p class="cat-subtitle">Buying wisely, arranging rooms, and caring for new pieces</p>
+        </div>
+      </div>
+      <div class="tips-grid">
+ 
+        <div class="tip-card furniture">
+          <div class="tip-card-header">
+            <span class="tip-emoji">🛋️</span>
+            <div class="tip-title">Arranging Rooms for Better Flow</div>
+          </div>
+          <div class="tip-body">
+            Good layout makes a room feel larger and more comfortable:
+            <ul>
+              <li>Don't push all furniture against walls — floating arrangements feel more welcoming.</li>
+              <li>Create a focal point (TV, fireplace, window) and arrange seating facing it.</li>
+              <li>Use an area rug to define a seating zone in an open-plan room.</li>
+              <li>Keep natural light paths clear — don't block windows with tall furniture.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">🏠 Design</span>
+        </div>
+ 
+        <div class="tip-card furniture">
+          <div class="tip-card-header">
+            <span class="tip-emoji">🧼</span>
+            <div class="tip-title">Caring for Different Upholstery</div>
+          </div>
+          <div class="tip-body">
+            Different fabrics, different rules:
+            <ul>
+              <li><strong>Fabric sofas:</strong> Vacuum weekly. Spot-clean with mild soap and cold water.</li>
+              <li><strong>Leather:</strong> Wipe with a damp cloth only — never use bleach. Condition twice a year.</li>
+              <li><strong>Velvet:</strong> Brush in one direction with a soft brush. Never rub.</li>
+              <li>Rotate cushions regularly to distribute wear evenly.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">✨ Care</span>
+        </div>
+ 
+        <div class="tip-card furniture">
+          <div class="tip-card-header">
+            <span class="tip-emoji">🌞</span>
+            <div class="tip-title">Sun & Humidity Protection</div>
+          </div>
+          <div class="tip-body">
+            The two biggest enemies of furniture in the region:
+            <ul>
+              <li>Use UV-blocking window film or curtains to prevent fading and fabric degradation.</li>
+              <li>Keep wood furniture away from air conditioner vents — sudden temperature changes cause cracking.</li>
+              <li>Use a dehumidifier in damp rooms — excess moisture warps wood and causes fabric mold.</li>
+              <li>Lift — don't drag — furniture when moving it, to protect both the piece and your flooring.</li>
+            </ul>
+          </div>
+          <span class="tip-tag">🛡️ Protection</span>
+        </div>
+ 
+      </div>
+    </section>
+ 
+    <section class="checklist-section" id="seasonal">
+      <h2>📅 Seasonal Home Maintenance Checklist</h2>
+      <p>Stay ahead of problems with these quarterly checks — organised by season.</p>
+      <div class="seasons-grid">
+        <div class="season-col">
+          <h4>🌸 Spring</h4>
+          <ul>
+            <li>Inspect roof and gutters for winter damage</li>
+            <li>Test all smoke and CO detectors</li>
+            <li>Check window and door seals</li>
+            <li>Service AC before summer heat</li>
+            <li>Deep-clean carpets and upholstery</li>
+            <li>Inspect iron gates for rust</li>
+          </ul>
+        </div>
+        <div class="season-col">
+          <h4>☀️ Summer</h4>
+          <ul>
+            <li>Check plumbing for leaks (heat can expand pipes)</li>
+            <li>Clean AC filters monthly</li>
+            <li>Inspect wood furniture for heat cracks</li>
+            <li>Check electrical panel for heat-related issues</li>
+            <li>Lubricate all door hinges</li>
+            <li>Treat outdoor metal with anti-rust paint</li>
+          </ul>
+        </div>
+        <div class="season-col">
+          <h4>🍂 Autumn</h4>
+          <ul>
+            <li>Flush water heater to remove sediment</li>
+            <li>Inspect heating system before winter</li>
+            <li>Check all exterior wood for paint peeling</li>
+            <li>Clean oven and kitchen exhaust fan</li>
+            <li>Inspect all window grilles and locks</li>
+            <li>Deep-clean behind large appliances</li>
+          </ul>
+        </div>
+        <div class="season-col">
+          <h4>❄️ Winter</h4>
+          <ul>
+            <li>Insulate exposed pipes to prevent freezing</li>
+            <li>Check doors and windows for cold drafts</li>
+            <li>Test ground fault circuit interrupters</li>
+            <li>Check for condensation buildup on windows</li>
+            <li>Inspect mattresses — flip or rotate them</li>
+            <li>Declutter and organise storage areas</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+ 
+    <div class="cta-strip">
+      <div>
+        <h3>Need a Professional Right Now?</h3>
+        <p>Find verified plumbers, electricians, carpenters, and more — all in one place.</p>
+      </div>
+      <a href="index.html#features" class="cta-btn">Browse Service Providers →</a>
+    </div>
+ 
+  </div>
+</main>
+ 
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-col">
+      <div class="footer-logo">
+        <img src="images/logo2-removebg-preview.png" alt="logo" style="width:140px; height:90px;">
+      </div>
+      <p class="footer-desc">Your comprehensive guide to all home services. We help you find the best furniture stores, craftsmen, and home service companies in your area.</p>
+    </div>
+    <div class="footer-col">
+      <h3 class="footer-title">Categories</h3>
+      <ul class="footer-list">
+        <li><span>🛋️ Furniture Stores</span></li>
+        <li><span>🪚 Carpenters</span></li>
+        <li><span>⚒️ Blacksmiths</span></li>
+        <li><span>🚛 Moving Companies</span></li>
+        <li><span>🏠 Home Helpers</span></li>
+        <li><span>🔧 Home Services</span></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3 class="footer-title">Contact Us</h3>
+      <div class="footer-contact">
+        <p>📧 info@baitak.jo</p>
+        <p>📞 +962 6 000 0000</p>
+      </div>
+    </div>
+  </div>
+  <hr class="footer-divider">
+  <div class="footer-bottom">
+    © 2026 BaytiCare - All rights reserved | Graduation Project
+  </div>
+</footer>
+ 
+<script>
+// Navbar hamburger
+const btn = document.getElementById('hamburger-btn');
+const menu = document.getElementById('mobile-menu');
+btn.addEventListener('click', () => menu.classList.toggle('open'));
+document.addEventListener('click', (e) => {
+  if (!btn.contains(e.target) && !menu.contains(e.target)) menu.classList.remove('open');
+});
+
+function goToSection(id, el) {
+  const target = document.getElementById(id);
+  if (!target) return;
+  const offset = target.getBoundingClientRect().top + window.scrollY - 145;
+  window.scrollTo({ top: offset, behavior: 'smooth' });
+  document.querySelectorAll('.qnav-item').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+ 
+const sections = ['plumbing','electrical','carpentry','blacksmith','moving','helpers','furniture','seasonal'];
+const navItems = document.querySelectorAll('.qnav-item');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 200) current = id;
+  });
+  navItems.forEach((btn, i) => {
+    btn.classList.toggle('active', sections[i] === current);
+  });
+}, { passive: true });
+
+function showNavFavorites() {
+    const sessionStr = localStorage.getItem('fakhama_session');
+    const favBtn = document.getElementById('nav-fav-btn');
+    
+    if (sessionStr && favBtn) {
+        try {
+            const user = JSON.parse(sessionStr);
+            const role = (user.role || '').toUpperCase();
+            if (role === 'CUSTOMER') {
+                favBtn.style.display = 'flex';
+            }
+        } catch(e) {
+            console.error("Error reading session");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', showNavFavorites);
+</script>
+<script src="auth_ui.js"></script>
+<script src="script.js"></script>
+<div id="google_translate_element" style="position:absolute; opacity:0; pointer-events:none; z-index:-1;"></div>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<a href="tips.html" class="floating-tips-btn" title="Home Care Tips">
+    <span class="lamp-icon">💡</span>
+    <span class="lamp-text">Tips</span>
+</a>
+</body>
+</html>

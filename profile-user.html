@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lucida Sans', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    background-color: #aac4c7;
+    overflow-x: hidden;
+    margin-top: 50px;
+    padding: 20px;
+}
+
+.header-bar {
+    width: 100%;
+    max-width: 550px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.back-home {
+    text-decoration: none;
+    color: rgb(139, 142, 141);
+    font-weight: bold;
+}
+
+.back-home:hover {
+    color: rgb(91, 94, 93);
+}
+
+.back-icon {
+    margin-bottom: 7px;
+    margin-right: 5px;
+    fill: rgb(139, 142, 141);
+}
+
+.back-home:hover .back-icon {
+    fill: rgb(91, 94, 93);
+}
+
+.favorites-btn {
+    background-color: #f0a9f0;
+    color: #333;
+    padding: 12px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 800;
+    border: 2px solid #f075f0;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.favorites-btn:hover {
+    background-color: #f075f0;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.box {
+    width: 100%;
+    max-width: 550px;
+    background-color: rgb(22, 136, 140);
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(20px);
+    color: #fff;
+    border-radius: 12px;
+    padding: 30px 40px;
+    margin-bottom: 50px;
+}
+
+.box h1 {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 20px 0;
+}
+
+.input-box input,
+.input-box select {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 0 45px 0 20px;
+    outline: none;
+}
+
+.input-box input::placeholder {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.input-box select {
+    appearance: none;
+    cursor: pointer;
+}
+
+.input-box select option {
+    background: #333;
+    color: #fff;
+}
+
+.input-box i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    pointer-events: none;
+}
+
+.btn-submit {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 10px;
+    color: #333;
+    transition: all 0.3s;
+}
+
+.btn-submit:hover {
+    opacity: 0.9;
+}
+
+.btn-logout {
+    width: 100%;
+    height: 45px;
+    background: transparent;
+    border: 2px solid #e74c3c;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 15px;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+.btn-logout:hover {
+    background: #c0392b;
+    border-color: #c0392b;
+}
+
+body.dark-mode .favorites-btn {
+    color: #333 !important;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header-bar">
+<a href="javascript:history.back()" class="back-home">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+        class="bi bi-arrow-left back-icon" viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+    </svg> Back
+</a>
+</div>
+
+<div class="box">
+<form onsubmit="updateProfile(event)">
+    <h1>My Profile</h1>
+
+    <p style="text-align: center; margin-bottom: 20px; font-weight: bold; background: rgba(0,0,0,0.1); padding: 5px; border-radius: 20px;"
+        id="roleBadge"></p>
+
+    <a href="favorites.html" id="favBtn" class="favorites-btn">
+        <i class='bx bxs-heart'></i> View My Favorites
+    </a>
+
+    <div class="input-box">
+        <input type="text" id="p_name" placeholder="Full Name" required>
+        <i class='bx bxs-user'></i>
+    </div>
+
+    <div class="input-box">
+        <input type="text" id="p_phone" placeholder="Phone Number" required pattern="[0-9]{10}" maxlength="10" title="Please enter a 10-digit phone number only." oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+        <i class='bx bxs-phone'></i>
+    </div>
+
+    <div class="input-box">
+        <input type="email" id="p_email" placeholder="Email" required disabled
+            style="opacity: 0.7; cursor: not-allowed;">
+        <i class='bx bxs-envelope'></i>
+    </div>
+
+    <!-- Store Owner Specific Fields -->
+    <div id="storeOwnerFields" style="display: none;">
+        <div class="input-box">
+            <select id="p_storeCategory">
+                <option value="" disabled selected>Select Category</option>
+                <option value="Furniture Stores">Furniture Stores</option>
+                <option value="Carpenters">Carpenters</option>
+                <option value="Blacksmiths">Blacksmiths</option>
+                <option value="Moving Companies">Moving Companies</option>
+                <option value="Home Helpers">Home Helpers</option>
+                <option value="Home Services">Home Services</option>
+            </select>
+        </div>
+        <div class="input-box">
+            <input type="text" id="p_storeAddress" placeholder="Store Address">
+            <i class='bx bxs-map'></i>
+        </div>
+    </div>
+
+    <button type="submit" class="btn-submit">Save Changes</button>
+    <button type="button" class="btn-logout" onclick="logout()">Sign Out</button>
+</form>
+</div>
+
+<script>
+const KEY_USERS = 'fakhama_users';
+const KEY_SESSION = 'fakhama_session';
+let currentUser = null;
+let usersList = [];
+
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        currentUser = JSON.parse(localStorage.getItem(KEY_SESSION));
+        usersList = JSON.parse(localStorage.getItem(KEY_USERS)) || [];
+    } catch (e) { }
+
+    if (!currentUser) {
+        window.location.href = 'login2.html';
+        return;
+    }
+
+    document.getElementById('p_name').value = currentUser.name || currentUser.fullName || '';
+    document.getElementById('p_email').value = currentUser.email || '';
+    document.getElementById('p_phone').value = currentUser.phone || '';
+
+    if (currentUser.role && currentUser.role.toUpperCase() === 'CUSTOMER') {
+        document.getElementById('roleBadge').textContent = 'Account Type: Customer';
+        document.getElementById('favBtn').style.display = 'flex';
+    } else {
+        document.getElementById('roleBadge').textContent = 'Account Type: Store Owner';
+        document.getElementById('storeOwnerFields').style.display = 'block';
+        document.getElementById('p_storeCategory').value = currentUser.category || '';
+        document.getElementById('p_storeAddress').value = currentUser.address || '';
+    }
+});
+
+function updateProfile(e) {
+    e.preventDefault();
+
+    let name = document.getElementById('p_name').value.trim();
+    let phone = document.getElementById('p_phone').value.trim();
+
+    let userIndex = usersList.findIndex(u => u.email === currentUser.email);
+    if (userIndex !== -1) {
+        usersList[userIndex].name = name;
+        usersList[userIndex].phone = phone;
+
+        if (currentUser.role && (currentUser.role.toUpperCase() === 'OWNER' || currentUser.role.toUpperCase() === 'PROVIDER')) {
+            usersList[userIndex].category = document.getElementById('p_storeCategory').value;
+            usersList[userIndex].address = document.getElementById('p_storeAddress').value;
+        }
+
+        localStorage.setItem(KEY_USERS, JSON.stringify(usersList));
+
+        currentUser = usersList[userIndex];
+        localStorage.setItem(KEY_SESSION, JSON.stringify(currentUser));
+
+        alert('Profile updated successfully!');
+    } else {
+        alert('User not found!');
+    }
+}
+
+function logout() {
+    localStorage.removeItem(KEY_SESSION);
+    window.location.href = 'index.html';
+}
+</script>
+<script src="dark-mode.js"></script>
+</body>
+</html>

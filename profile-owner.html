@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Provider Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lucida Sans', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+            background-color: #aac4c7;
+            overflow-x: hidden;
+            margin-top: 50px;
+            padding: 20px;
+        }
+
+        .header-bar {
+            width: 100%;
+            max-width: 550px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .back-home {
+            text-decoration: none;
+            color: rgb(139, 142, 141);
+            font-weight: bold;
+        }
+
+        .back-home:hover {
+            color: rgb(91, 94, 93);
+        }
+
+        .back-icon {
+            margin-bottom: 7px;
+            margin-left: 5px;
+            fill: rgb(139, 142, 141);
+        }
+
+        .back-home:hover .back-icon {
+            fill: rgb(91, 94, 93);
+        }
+
+        .box {
+            width: 100%;
+            max-width: 550px;
+            background-color: rgb(22, 136, 140);
+            border: 2px solid rgba(255, 255, 255, .2);
+            backdrop-filter: blur(20px);
+            color: #fff;
+            border-radius: 12px;
+            padding: 30px 40px;
+            margin-bottom: 50px;
+        }
+
+        .box h1 {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-box {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            margin: 20px 0;
+        }
+
+        .input-box input,
+        .input-box select,
+        .input-box textarea {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, .2);
+            border-radius: 40px;
+            font-size: 16px;
+            color: #fff;
+            padding: 0 20px 0 45px;
+            outline: none;
+            resize: vertical;
+            overflow-y: hidden;
+        }
+
+        .input-box textarea {
+            height: 100px;
+            padding: 15px 20px 15px 45px;
+        }
+
+        .input-box textarea::-webkit-scrollbar {
+            width: 0px; 
+            background: transparent; 
+        }
+
+        .input-box.textarea-container {
+            height: auto;
+            margin-bottom: 30px;
+        }
+
+        .input-box input::placeholder,
+        .input-box textarea::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .input-box select {
+            appearance: none;
+            cursor: pointer;
+            padding: 0 20px 0 45px;
+        }
+
+        .input-box select option {
+            background: #333;
+            color: #fff;
+        }
+
+        .input-box i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            pointer-events: none;
+        }
+
+        .btn-submit {
+            width: 100%;
+            height: 45px;
+            background: #fff;
+            border: none;
+            outline: none;
+            border-radius: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 20px;
+            color: #333;
+            transition: all 0.3s;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        .btn-logout {
+            width: 100%;
+            height: 45px;
+            background: transparent;
+            border: 2px solid #e74c3c;
+            outline: none;
+            border-radius: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 15px;
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        .btn-logout:hover {
+            background: #c0392b;
+            border-color: #c0392b;
+        }
+
+        .role-badge {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            background: rgba(0,0,0,0.1);
+            padding: 10px;
+            border-radius: 20px;
+        }
+
+        body.dark-mode .btn-logout{
+            border: 2px solid #e74c3c !important;
+        }
+    </style>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD3lvln6AhHHAYdgd-70QuWN9XQzxVYH3Y",
+      authDomain: "bayticare-222ab.firebaseapp.com",
+      projectId: "bayticare-222ab",
+      storageBucket: "bayticare-222ab.firebasestorage.app",
+      messagingSenderId: "933602336408",
+      appId: "1:933602336408:web:1778209b210c8f052ebaed",
+      measurementId: "G-DMGMJTBRK8"
+    };
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    const db = firebase.firestore();
+</script>
+</head>
+
+<body>
+
+    <div class="header-bar">
+<a href="javascript:history.go(-1)" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                class="bi bi-arrow-left back-icon" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+            </svg> 
+            Back
+        </a>
+    </div>
+
+    <div class="box">
+        <form onsubmit="updateProfile(event)">
+            <h1>My Profile</h1>
+
+            <p class="role-badge">
+Account Type:
+<span id="accountType"></span>
+</p>
+
+            <div class="input-box">
+                <input type="text" id="p_storeName" placeholder="Store Name" required>
+                <i class='bx bxs-store-alt'></i>
+            </div>
+
+            <div class="input-box">
+                <input type="text" id="p_ownerName" placeholder="Owner Name" required>
+                <i class='bx bxs-user'></i>
+            </div>
+
+            <div class="input-box">
+                <input type="text" id="p_phone" placeholder="Phone Number" required pattern="[0-9]{10}" maxlength="10" title="Please enter a 10-digit phone number only." oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                <i class='bx bxs-phone'></i>
+            </div>
+
+            <div class="input-box">
+                <input type="text" id="ownerCity" placeholder="City">
+                <i class='bx bxs-location-plus'></i>
+            </div>
+
+            <div class="input-box">
+                <input type="email" id="p_email" placeholder="Email" required disabled
+                    style="opacity: 0.7; cursor: not-allowed;">
+                <i class='bx bxs-envelope'></i>
+            </div>
+
+            <div class="input-box">
+                <select id="p_storeCategory" required disabled style="opacity: 0.7; cursor: not-allowed; background-color: rgba(0,0,0,0.1);">
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="Furniture Stores">Furniture Stores</option>
+                    <option value="Carpenters">Carpenters</option>
+                    <option value="Blacksmiths">Blacksmiths</option>
+                    <option value="Moving Companies">Moving Companies</option>
+                    <option value="Home Helpers">Home Helpers</option>
+                    <option value="Home Services">Home Services</option>
+                </select>
+                <i class='bx bxs-category'></i>
+            </div>
+
+            <div class="input-box">
+                <textarea id="p_storeDescription" placeholder="Store Description / Service"></textarea>
+                <i class='bx bxs-notepad'></i>
+            </div>
+
+            <div style="margin-top: 80px;">
+                <div class="input-box">
+                <input type="text" id="p_instaPage" placeholder="Instagram Username (Optional)">
+                <i class='bx bxl-instagram'></i>
+                </div>
+                <div class="input-box">
+                <input type="text" id="p_fbPage" placeholder="Facebook Page (Optional)">
+                <i class='bx bxl-facebook-circle'></i>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">Save Changes</button>
+            <button type="button" class="btn-logout" onclick="logout()">Sign Out</button>
+        </form>
+    </div>
+
+<script>
+    const KEY_USERS = 'fakhama_users';
+    const KEY_SESSION = 'fakhama_session';
+    let currentUser = null;
+    let usersList = [];
+
+    const specialtyMap = {
+        'furniture': 'Furniture Stores',
+        'carpenters': 'Carpenters',
+        'blacksmiths': 'Blacksmiths',
+        'moving': 'Moving Companies',
+        'helpers': 'Home Helpers',
+        'services': 'Home Services'
+    };
+
+    const reverseSpecialtyMap = Object.fromEntries(
+        Object.entries(specialtyMap).map(([k, v]) => [v, k])
+    );
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            currentUser = JSON.parse(localStorage.getItem(KEY_SESSION));
+            usersList = JSON.parse(localStorage.getItem(KEY_USERS)) || [];
+        } catch (e) {
+            window.location.href = 'login2.html';
+            return;
+        }
+
+        if (!currentUser || currentUser.role !== 'PROVIDER') {
+            window.location.href = 'login2.html';
+            return;
+        }
+
+        const typeElem = document.getElementById('accountType');
+        if(typeElem) typeElem.innerText = currentUser.role;
+
+        document.getElementById('p_storeName').value = currentUser.storeName || localStorage.getItem('activeStoreName') || '';
+        document.getElementById('p_ownerName').value = currentUser.ownerName || currentUser.name || currentUser.fullName || '';
+        document.getElementById('p_email').value = currentUser.ownerEmail || currentUser.email || '';
+        document.getElementById('p_phone').value = currentUser.ownerPhone || currentUser.phone || '';
+        document.getElementById('ownerCity').value = currentUser.ownerCity || currentUser.address || localStorage.getItem('activeStoreCity') || '';
+        document.getElementById('p_storeDescription').value = currentUser.storeDescription || currentUser.description || '';
+        
+        const email = currentUser.email || currentUser.ownerEmail;
+        if(email) {
+            try {
+                let storeDoc = await db.collection("stores").doc(email).get();
+                
+                if(!storeDoc.exists) {
+                    const docId = email.toLowerCase().replace(/[^a-z0-9]/g, "_");
+                    storeDoc = await db.collection("stores").doc(docId).get();
+                }
+
+                if (storeDoc.exists) {
+                    const data = storeDoc.data();
+                    if(data.storeName) document.getElementById('p_storeName').value = data.storeName;
+                    if(data.city || data.ownerCity) document.getElementById('ownerCity').value = data.city || data.ownerCity;
+                    if(data.phone || data.ownerPhone) document.getElementById('p_phone').value = data.phone || data.ownerPhone;
+                    if(data.description || data.storeDescription) document.getElementById('p_storeDescription').value = data.description || data.storeDescription;
+                    if(data.instaPage) document.getElementById('p_instaPage').value = data.instaPage;
+                    if(data.fbPage) document.getElementById('p_fbPage').value = data.fbPage;
+                    
+                    const categoryText = specialtyMap[data.category || data.storeSpecialty] || data.category || '';
+                    const categorySelect = document.getElementById('p_storeCategory');
+                    for (let i = 0; i < categorySelect.options.length; i++) {
+                        if (categorySelect.options[i].value === categoryText || categorySelect.options[i].text === categoryText) {
+                            categorySelect.selectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error("Error loading from Firebase:", error);
+            }
+        }
+    });
+
+    async function updateProfile(e) {
+        e.preventDefault();
+
+        const storeName = document.getElementById('p_storeName').value.trim();
+        const ownerName = document.getElementById('p_ownerName').value.trim();
+        const phone = document.getElementById('p_phone').value.trim();
+        const category = document.getElementById('p_storeCategory').value;
+        const city = document.getElementById('ownerCity').value.trim();
+        const insta = document.getElementById('p_instaPage').value.trim();
+        const fb = document.getElementById('p_fbPage').value.trim();
+        const description = document.getElementById('p_storeDescription').value.trim();
+        const email = currentUser.email || currentUser.ownerEmail;
+
+        if (!storeName || !ownerName || !phone || !city) {
+            alert('Please fill all required fields');
+            return;
+        }
+
+        if(email) {
+            try {
+                const storeDataToUpdate = {
+                    storeName: storeName,
+                    name: storeName,
+                    ownerName: ownerName,
+                    phone: phone,
+                    ownerPhone: phone,
+                    city: city,
+                    ownerCity: city,
+                    address: city,
+                    category: category,
+                    description: description,
+                    storeDescription: description,
+                    instaPage: insta,
+                    fbPage: fb,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
+                await db.collection("stores").doc(email).set(storeDataToUpdate, { merge: true });
+                
+                const docId = email.toLowerCase().replace(/[^a-z0-9]/g, "_");
+                await db.collection("stores").doc(docId).set(storeDataToUpdate, { merge: true });
+
+            } catch(error) {
+                console.error("Firebase Update Error:", error);
+                alert("Failed to update server data. Please try again.");
+                return; 
+            }
+        }
+
+        localStorage.setItem('activeStoreName', storeName);
+        localStorage.setItem('activeStorePhone', phone);
+        localStorage.setItem('activeStoreCity', city);
+        localStorage.setItem('activeStoreDesc', description);
+        localStorage.setItem('activeStoreInsta', insta);
+        localStorage.setItem('activeStoreFB', fb);
+
+        currentUser.storeName = storeName;
+        currentUser.ownerName = ownerName;
+        currentUser.name = ownerName;
+        currentUser.phone = phone;
+        currentUser.ownerPhone = phone;
+        currentUser.city = city;
+        currentUser.ownerCity = city;
+        currentUser.address = city;
+        currentUser.storeDescription = description;
+        currentUser.description = description;
+        currentUser.instaPage = insta;
+        currentUser.fbPage = fb;
+
+        localStorage.setItem(KEY_SESSION, JSON.stringify(currentUser));
+
+        const userIndex = usersList.findIndex(u => (u.email || u.ownerEmail) === email);
+        if (userIndex !== -1) {
+            usersList[userIndex] = { ...usersList[userIndex], ...currentUser };
+            localStorage.setItem(KEY_USERS, JSON.stringify(usersList));
+        }
+
+        alert('Profile updated successfully! ✅');
+        location.reload();
+    }
+
+    function logout() {
+        localStorage.removeItem(KEY_SESSION);
+        window.location.href = 'index.html';
+    }
+</script>
+<script src="dark-mode.js"></script>
+</body>
+</html>

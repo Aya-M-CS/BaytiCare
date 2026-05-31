@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Favorites - BaytiCare</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    
+}
+
+
+main {
+    padding-top: 80px;
+    flex: 1;
+}
+
+:root {
+    --primary-bg: #d1d2d2;
+    --primary-text: #000000;
+    --primary-accent: #8B3DFF;
+    --secondary-accent: #C095FF;
+    --navbar: rgb(22, 136, 140);
+    --navbar2: rgb(93, 50, 7);
+    --marg-top: 50px;
+    --reviews: rgb(91, 94, 93);
+    --gray-text: rgb(77, 82, 81);
+}
+
+html {
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--primary-bg);
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: var(--navbar);
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+    align-items: center;
+    padding: 0 16px;
+    gap: 10px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.navbar::-webkit-scrollbar,
+.nav-links::-webkit-scrollbar {
+    display: none;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: fit-content;
+    text-decoration: none;
+}
+
+.nb-divider {
+    width: 1px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+}
+
+.navbar-brand img {
+    height: 60px;
+    width: 90px;
+}
+
+.nav-links {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: center;
+    gap: 15px;
+    overflow-x: auto;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    color: #e8d8b0;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    text-align: center;
+    transition: background 0.2s;
+    min-width: 60px;
+    border: none;
+    background: none;
+    text-decoration: none;
+}
+
+.nav-item:hover,
+.location-btn:hover,
+.icon-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.nav-item .icon {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.nav-item .label {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.right-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.icon-btn,
+.right-group {
+    background: none;
+    border: none;
+    color: #ebdebd;
+    cursor: pointer;
+    padding: 7px 17px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 34px;
+    gap: 5px;
+    font-size: 13px;
+    flex-direction: row;
+}
+
+.custom-select {
+    position: relative;
+    cursor: pointer;
+    color: #ebdebd;
+}
+
+.custom-select .options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    border: 2px solid rgb(16, 71, 103);
+    background: var(--navbar);
+    border-radius: 8px;
+    padding: 5px 0;
+    z-index: 999;
+}
+
+.custom-select .options div {
+    padding: 8px 10px;
+    color: #ebdebd;
+}
+
+.custom-select .options div:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.custom-select .options.open {
+    display: block;
+}
+
+.hamburger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 7px;
+    border-radius: 6px;
+    margin-left: 10px;
+}
+
+.hamburger-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.hamburger-btn span {
+    display: block;
+    width: 22px;
+    height: 2.5px;
+    background: #e8d8b0;
+    border-radius: 3px;
+}
+
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background: var(--navbar);
+    flex-direction: column;
+    z-index: 999;
+    padding: 12px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+}
+
+.mobile-menu.open {
+    display: grid;
+}
+
+.nav-item-mobile {
+    background: none;
+    border: none;
+    color: #e8d8b0;
+    font-size: 15px;
+    padding: 14px 20px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.nav-item-mobile:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.fav-hover i {
+    color: #ebdebd;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+.fav-hover:hover i {
+    color: #E53935 !important;
+    transform: scale(1.15);
+}
+
+/* ///////////// */
+.home-btn {
+    text-decoration: none;
+    color: var(--gray-text);
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 30px 50px 0;
+    margin-bottom: -10px;
+    z-index: 10;
+}
+
+.home-btn:hover {
+    color: #000000;
+}
+
+.favorites-section {
+    flex: 1;
+    min-height: 70vh;
+    /* padding: 120px 40px 20px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page-title {
+    color: var(--navbar);
+    font-weight: bold;
+    font-size: 32px;
+    margin-bottom: 40px;
+    text-align: center;
+    width: 100%;
+}
+
+.empty-favorites {
+    background-color: #faecec;
+    border: 2px dashed #cbc9c9;
+    border-radius: 20px;
+    padding: 60px 30px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.empty-icon {
+    font-size: 80px;
+    color: #E53935;
+    opacity: 0.7;
+    margin-bottom: 20px;
+}
+
+.empty-favorites h2 {
+    color: var(--navbar);
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.empty-favorites p {
+    color: var(--gray-text);
+    font-size: 16px;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.btn-browse {
+    background-color: var(--navbar);
+    color: white;
+    padding: 10px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s;
+    display: inline-block;
+    border: 2px solid var(--navbar);
+}
+
+.btn-browse:hover {
+    background-color: transparent;
+    color: var(--navbar);
+}
+
+.cont1 {
+    border: 2px solid none;
+    background-color: #faecec;
+    border-radius: 30px;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    border-top: 8px solid var(--navbar);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+}
+.cont1:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); }
+.cont1 .a1 { text-decoration: none; color: inherit; }
+.cont1 .h3 { color: #000; font-weight: bold; margin: 10px 0; font-size: 20px; }
+.cont1:hover .h3 { 
+    color: var(--navbar); 
+}
+.cont1 .tel {
+    text-decoration: none; color: #ffffff; background-color: var(--navbar);
+    border-radius: 15px; font-weight: bold; font-size: 18px; padding: 10px 0;
+    display: flex; align-items: center; justify-content: center; width: 100%;
+    margin-top: 15px;
+}
+.favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.favorites-grid {
+    display: none;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--navbar);
+    padding: 40px 30px 30px;
+    margin-top: auto;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.footer-desc {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.footer-title {
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.footer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-list li span {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 15px;
+    /* cursor: auto; */
+    transition: color 0.2s;
+}
+
+.footer-list li span:hover {
+    color: #fff;
+}
+
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 20px;
+}
+
+.footer-divider {
+    border: none;
+    border-top: 2px solid rgba(255, 255, 255, 0.6);
+    margin: 30px auto;
+    max-width: 1200px;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    padding-bottom: 10px;
+}
+
+@media (max-width: 1100px) {
+    .navbar {
+        grid-template-columns: auto auto !important;
+        justify-content: space-between;
+    }
+    .nb-divider, .nav-links {
+        display: none;
+    }
+    .hamburger-btn {
+        display: flex;
+    }
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+@media (max-width: 500px) {
+    .favorites-section {
+        padding: 0px 20px 20px;
+    }
+    .favorites-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .page-title {
+        font-size: 26px;
+        margin-bottom: 25px;
+    }
+    .home-btn {
+        margin-bottom: 0;
+    }
+    .floating-tips-btn {
+        bottom: 20px;
+        right: 20px;
+        width: 55px;
+        height: 55px;
+    }
+}
+
+.lang-btn {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px 8px;
+    border-radius: 6px;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lang-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode {
+    --primary-bg: #121212;
+    --gray-text: #cccccc;
+}
+
+body.dark-mode .empty-favorites,
+body.dark-mode .cont1 {
+    background-color: #2a2a2a !important;
+    border-color: #444 !important;
+}
+
+body.dark-mode .page-title,
+body.dark-mode .empty-favorites h2,
+body.dark-mode .h3,
+body.dark-mode .home-btn {
+    color: #ffffff !important;
+}
+
+body.dark-mode .home-btn:hover {
+    color: #aaaaaa !important;
+}
+
+body.dark-mode .empty-favorites p,
+body.dark-mode .cont1 .p,
+body.dark-mode .location,
+body.dark-mode .location span {
+    color: #cccccc !important;
+}
+
+body.dark-mode .cont1:hover .h3 {
+    color: var(--navbar) !important;
+}
+
+body.dark-mode .cont1 .span .text {
+    background-color: #121212 !important;
+    color: #ffffff !important;
+}
+/* /////////////////////////////////////// */
+.floating-tips-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 65px;
+    height: 65px;
+    background-color: var(--navbar);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 9999;
+    transition: all 0.3s ease;
+    border: 2px solid white;
+}
+
+.floating-tips-btn:hover {
+    transform: scale(1.1);
+    background-color: #1da8ad;
+    color: white;
+}
+
+.lamp-icon {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.lamp-text {
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+</style>
+</head>
+
+<body>
+<nav class="navbar">
+<a class="navbar-brand" href="index.html">
+    <img src="images/logo2-removebg-preview.png" alt="BaytiCare Logo" style="margin-left: 10px;">
+</a>
+
+<div class="nb-divider" id="divider-main"></div>
+
+<div class="nav-links" id="nav-links">
+    <a class="nav-item" href="furniture-stores.html"><span class="icon">🛋️</span><span class="label">Furniture Stores</span></a>
+    <a class="nav-item" href="carpenters.html"><span class="icon">🪚</span><span class="label">Carpenters</span></a>
+    <a class="nav-item" href="blacksmiths.html"><span class="icon">⚒️</span><span class="label">Blacksmiths</span></a>
+    <a class="nav-item" href="moving-companies.html"><span class="icon">🚛</span><span class="label">Moving Companies</span></a>
+    <a class="nav-item" href="home-helpers.html"><span class="icon">🏠</span><span class="label">Home Helpers</span></a>
+    <a class="nav-item" href="home-services.html"><span class="icon">🔧</span><span class="label">Home Services</span></a>
+</div>
+<div class="right-group">
+<a href="favorites.html" id="nav-fav-btn" style="text-decoration: none; display: none;">
+    <button class="icon-btn fav-hover" title="My Favorites" style="padding: 5px 10px;">
+        <i class="fa fa-heart" style="font-size: 19px;"></i>
+    </button>
+</a>
+
+    <button type="button" class="lang-btn" id="langToggle" title="Translate">🌐</button>
+    <button type="button" class="lang-btn" id="darkModeToggle" title="Dark Mode">🌙</button>
+
+    <a href="login2.html" style="text-decoration: none;">
+        <button class="icon-btn" style="border: 1px solid none; background-color: rgb(255, 255, 255); color: var(--navbar); padding: 5px; font-weight: bold; width: 60px;">Login</button>
+    </a>
+    <button class="hamburger-btn" id="hamburger-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+    <a class="nav-item-mobile" href="furniture-stores.html"><span>🛋️</span> Furniture Stores</a>
+    <a class="nav-item-mobile" href="carpenters.html"><span>🪚</span> Carpenters</a>
+    <a class="nav-item-mobile" href="blacksmiths.html"><span>⚒️</span> Blacksmiths</a>
+    <a class="nav-item-mobile" href="moving-companies.html"><span>🚛</span> Moving Companies</a>
+    <a class="nav-item-mobile" href="home-helpers.html"><span>🏠</span> Home Helpers</a>
+    <a class="nav-item-mobile" href="home-services.html"><span>🔧</span> Home Services</a>
+</div>
+<main>
+<a href="index.html" class="home-btn">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="15 18 9 12 15 6" /><line x1="10" y1="12" x2="100" y2="10" />
+  </svg> Home
+</a>
+</main>
+<section class="favorites-section">
+<h1 class="page-title">My Favorites</h1>
+
+<div class="empty-favorites" id="empty-state">
+    <i class='bx bx-heart empty-icon'></i>
+    <h2>Your Favorites List is Empty</h2>
+    <p>Start exploring our categories and click the heart icon <br> on stores you love to save them here.</p>
+    <a href="index.html" class="btn-browse">Browse Stores</a>
+</div>
+
+<div class="favorites-grid" id="favorites-grid">
+    </div>
+</section>
+
+<footer class="footer">
+<div class="footer-container">
+    <div class="footer-col">
+        <div class="footer-logo">
+            <img src="images/logo2-removebg-preview.png" alt="logo" style="width: 140px; height: 90px;">
+        </div>
+        <p class="footer-desc">Your comprehensive guide to all home services. We help you find the best furniture stores, craftsmen, and home service companies in your area.</p>
+    </div>
+    <div class="footer-col">
+        <h3 class="footer-title">Categories</h3>
+        <ul class="footer-list">
+            <li><span>🛋️ Furniture Stores</span></li>
+            <li><span>🪚 Carpenters</span></li>
+            <li><span>⚒️ Blacksmiths</span></li>
+            <li><span>🚛 Moving Companies</span></li>
+            <li><span>🏠 Home Helpers</span></li>
+            <li><span>🔧 Home Services</span></li>
+        </ul>
+    </div>
+    <div class="footer-col">
+        <h3 class="footer-title">Contact Us</h3>
+        <div class="footer-contact">
+            <p>📧 info@baitak.jo</p>
+            <p>📞 +962 6 000 0000</p>
+        </div>
+    </div>
+</div>
+<hr class="footer-divider">
+<div class="footer-bottom">
+    © 2026 BaytiCare - All rights reserved | Graduation Project
+</div>
+</footer>
+
+<script src="auth_ui.js"></script>
+
+<script>
+const btn = document.getElementById('hamburger-btn');
+const menu = document.getElementById('mobile-menu');
+
+btn.addEventListener('click', () => { menu.classList.toggle('open'); });
+document.addEventListener('click', (e) => {
+    if (!btn.contains(e.target) && !menu.contains(e.target)) { menu.classList.remove('open'); }
+});
+
+function selectCity(city) { document.getElementById('selected-city').textContent = city; }
+const customSelect = document.querySelector('.custom-select');
+if (customSelect) {
+    customSelect.addEventListener('click', function (e) {
+        const options = this.querySelector('.options');
+        if (options) options.classList.toggle('open');
+        e.stopPropagation();
+    });
+}
+
+document.addEventListener('click', function () {
+    const options = document.querySelector('.options');
+    if(options) options.classList.remove('open');
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    renderFavorites();
+});
+
+function renderFavorites() {
+    const sessionStr = localStorage.getItem('fakhama_session');
+    const emptyState = document.getElementById('empty-state');
+    const grid = document.getElementById('favorites-grid');
+
+    if (!sessionStr) {
+        emptyState.innerHTML = `
+            <i class='bx bx-user empty-icon' style="font-size: 80px; color: #E53935;"></i>
+            <h2>Please Login</h2>
+            <p>You need to be logged in as a customer to view your favorites.</p>
+            <a href="login2.html" class="btn-browse">Login Now</a>
+        `;
+        grid.style.display = 'none';
+        return;
+    }
+
+    let currentUser;
+    try {
+        currentUser = JSON.parse(sessionStr);
+    } catch(e) {
+        console.error("Session parsing error");
+        return;
+    }
+
+    const userRole = (currentUser.role || '').toUpperCase();
+    if (userRole !== 'CUSTOMER') {
+        emptyState.innerHTML = `
+            <i class='bx bx-block empty-icon' style="font-size: 80px; color: #E53935;"></i>
+            <h2>Not Available</h2>
+            <p>The favorites feature is only available for customers.</p>
+            <a href="index.html" class="btn-browse">Back to Home</a>
+        `;
+        grid.style.display = 'none';
+        return;
+    }
+
+    const favsKey = 'fakhama_favs_' + currentUser.email;
+    let favs = [];
+    try {
+        favs = JSON.parse(localStorage.getItem(favsKey)) || [];
+    } catch(e) {
+        console.error("Favorites corrupted, resetting.");
+        localStorage.setItem(favsKey, "[]");
+    }
+
+    if (!Array.isArray(favs) || favs.length === 0) {
+        emptyState.style.display = 'block';
+        grid.style.display = 'none';
+        return;
+    }
+
+    emptyState.style.display = 'none';
+    grid.style.setProperty('display', 'grid', 'important');
+
+    const categoryEmojis = {
+        "Furniture Stores": "🛋️", "Carpenters": "🪚", "Blacksmiths": "⚒️",
+        "Moving Companies": "🚛", "Home Helpers": "🏠", "Home Services": "🔧"
+    };
+
+    let htmlContent = '';
+    favs.forEach(store => {
+        const icon = categoryEmojis[store.category] || "✨";
+        const storeId = store.id || 'unknown';
+        const storeCategory = store.category || 'Category';
+        const storeName = store.name || 'Store Name';
+        const storeDesc = store.desc || 'No description available.';
+        const storeLoc = store.loc || 'Amman';
+        const storePhone = store.phone || '';
+
+        htmlContent += `
+        <div class="cont1" id="fav-card-${storeId}" style="cursor: pointer;" onclick="window.location.href='store-details.html?id=${storeId}'">
+            <div class="span mb-2" style="display: flex; justify-content: space-between; align-items: center;">
+                <a class="a1" href="store-details.html?id=${storeId}" onclick="event.preventDefault();">
+                    <span class="text" style="color: var(--gray-text); border: 2px solid cadetblue; border-radius: 50px; padding: 4px 12px; background-color: lightyellow; font-size: 14px;">
+                        ${icon} ${storeCategory}
+                    </span>
+                </a>
+                <button onclick="event.stopPropagation(); removeFromFavs('${storeId}')" style="background: none; border: none; color: #E53935; font-size: 24px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" title="Remove from favorites">
+                    <i class='fa fa-heart'></i>
+                </button>
+            </div>
+            <div style="width: fit-content;">
+                <a href="store-details.html?id=${storeId}" class="a1" onclick="event.preventDefault();">
+                    <h3 class="h3">${storeName}</h3>
+                </a>
+            </div>
+            <p class="p" style="margin-top: 15px; color: var(--gray-text); height: 45px; overflow: hidden; font-size: 14px; line-height: 1.5;">
+                ${storeDesc}
+            </p>
+            <div class="location" style="margin-top: 20px; color: var(--gray-text);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 4px;">
+                    <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span style="margin-left: 2px;">${storeLoc}</span>
+            </div>
+            <hr style="margin-top: auto; border-color: #ddd; margin-bottom: 5px;">
+            <div class="social">
+                <a href="tel:${storePhone}" class="tel" onclick="event.stopPropagation();">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    Call Now
+                </a>
+            </div>
+        </div>`;
+    });
+    grid.innerHTML = htmlContent;
+}
+
+function removeFromFavs(storeId) {
+    const currentUser = JSON.parse(localStorage.getItem('fakhama_session'));
+    const favsKey = 'fakhama_favs_' + currentUser.email;
+    let favs = JSON.parse(localStorage.getItem(favsKey)) || [];
+    
+    favs = favs.filter(s => s.id !== storeId);
+    localStorage.setItem(favsKey, JSON.stringify(favs));
+    
+    const card = document.getElementById('fav-card-' + storeId);
+    if(card) {
+        card.style.transform = 'scale(0.9)';
+        card.style.opacity = '0';
+        setTimeout(() => renderFavorites(), 200); 
+    } else {
+        renderFavorites();
+    }
+}
+
+function showNavFavorites() {
+    const sessionStr = localStorage.getItem('fakhama_session');
+    const favBtn = document.getElementById('nav-fav-btn');
+    
+    if (sessionStr && favBtn) {
+        try {
+            const user = JSON.parse(sessionStr);
+            const role = (user.role || '').toUpperCase();
+            if (role === 'CUSTOMER') {
+                favBtn.style.display = 'flex';
+            }
+        } catch(e) {
+            console.error("Error reading session");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', showNavFavorites);
+
+</script>
+<div id="google_translate_element" style="position:absolute; opacity:0; pointer-events:none; z-index:-1;"></div>
+<script src="script.js"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<a href="tips.html" class="floating-tips-btn" title="Home Care Tips">
+    <span class="lamp-icon">💡</span>
+    <span class="lamp-text">Tips</span>
+</a>
+</body>
+</html>

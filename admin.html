@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f5f5f5;
+padding:30px;
+}
+
+h1{
+color:teal;
+}
+
+.card{
+background:white;
+padding:20px;
+margin-bottom:15px;
+border-radius:12px;
+box-shadow:0 0 10px rgba(0,0,0,.08);
+}
+
+button{
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:8px;
+cursor:pointer;
+margin-right:10px;
+}
+
+.deleteBtn{
+background:crimson;
+}
+
+.editBtn{
+background:teal;
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+#darkModeToggle {
+    position: fixed !important;
+    top: 5px !important;
+    right: 25px !important;
+    bottom: auto !important;
+    left: auto !important;
+    z-index: 9999 !important;
+    
+    background-color: white;
+    /* border: 2px solid teal; */
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+#darkModeToggle:hover {
+    transform: scale(1.1);
+}
+
+body.dark-mode #darkModeToggle {
+    background-color: #2c2c2c;
+    border-color: #555;
+    color: white;
+}
+</style>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyD3lvln6AhHHAYdgd-70QuWN9XQzxVYH3Y",
+  authDomain: "bayticare-222ab.firebaseapp.com",
+  projectId: "bayticare-222ab",
+  storageBucket: "bayticare-222ab.firebasestorage.app",
+  messagingSenderId: "933602336408",
+  appId: "1:933602336408:web:1778209b210c8f052ebaed",
+  measurementId: "G-DMGMJTBRK8"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+</script>
+</head>
+
+<body>
+
+<div class="top">
+<h1>Admin Dashboard</h1>
+<button class="deleteBtn" onclick="logout()">Logout</button>
+</div>
+<h2>Pending Owners</h2>
+<div id="ownersList"></div>
+
+
+<h2>Stores</h2>
+
+
+<div style="margin-bottom:20px;">
+
+<button class="editBtn" onclick="showUsers()">
+Users
+</button>
+</div>
+
+<div id="storesList"></div>
+
+<script>
+
+let stores = [];
+let pendingOwners = [];
+
+const list = document.getElementById("storesList");
+const box = document.getElementById("ownersList");
+
+db.collection("stores").where("approved", "==", true).onSnapshot(snapshot => {
+    stores = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    renderStores();
+});
+
+// جلب الطلبات المعلقة (المتاجر غير الموافق عليها)
+db.collection("stores").where("approved", "==", false).onSnapshot(snapshot => {
+    pendingOwners = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    renderOwners();
+});
+
+function renderStores(){
+    list.innerHTML = "";
+
+    if(stores.length === 0) {
+        list.innerHTML = "<p style='color:gray;'>No active stores yet.</p>";
+        return;
+    }
+
+    stores.forEach((store, index) => {
+        let insta = store.instagram || store.insta || store.instaPage || store.instagramPage || store.instagramLink || 'Null';
+        let fb = store.facebook || store.fb || store.fbPage || store.facebookPage || store.facebookLink || 'Null';
+
+        list.innerHTML += `
+        <div class="card">
+            <h3>${store.storeName || store.name || 'Null'}</h3>
+            <p><b>Category:</b> ${store.category || store.storeSpecialty || store.storeCategory || 'Null'}</p>
+            <p><b>City:</b> ${store.city || store.ownerCity || store.address || 'Null'}</p>
+            <p><b>Phone:</b> ${store.phone || store.ownerPhone || 'Null'}</p>
+            <p><b>Description:</b> ${store.description || store.storeDescription || 'Null'}</p>
+            <p><b>Instagram:</b> <span style="color:#E1306C">${insta}</span></p>
+            <p><b>Facebook:</b> <span style="color:#1877F2">${fb}</span></p>
+
+            <div style="margin-top: 15px;">
+                <button class="editBtn" onclick="editStore(${index})">
+                Edit
+                </button>
+
+                <button class="deleteBtn" onclick="deleteStore(${index})">
+                Delete
+                </button>
+            </div>
+        </div>
+        `;
+    });
+}
+
+function renderOwners(){
+    box.innerHTML = "";
+
+    if(pendingOwners.length === 0) {
+        box.innerHTML = "<p style='color:gray;'>No pending requests.</p>";
+        return;
+    }
+
+    pendingOwners.forEach((user, index) => {
+        let insta = user.instagram || user.insta || user.instaPage || user.instagramPage || user.instagramLink || 'Null';
+        let fb = user.facebook || user.fb || user.fbPage || user.facebookPage || user.facebookLink || 'Null';
+
+        box.innerHTML += `
+        <div class="card">
+            <h3>${user.name || user.ownerName || 'Null'}</h3>
+            <p><b>Email:</b> ${user.email || user.ownerEmail || 'Null'}</p>
+            <p><b>Store Name:</b> ${user.storeName || 'Null'}</p>
+            <p><b>Phone:</b> ${user.phone || user.ownerPhone || 'Null'}</p>
+            <p><b>City:</b> ${user.address || user.city || user.ownerCity || 'Null'}</p>
+            <p><b>Specialty:</b> ${user.category || user.storeSpecialty || 'Null'}</p>
+            <p><b>Description:</b> ${user.storeDescription || user.description || 'Null'}</p>
+            <p><b>Instagram:</b> <span style="color:#E1306C">${insta}</span></p>
+            <p><b>Facebook:</b> <span style="color:#1877F2">${fb}</span></p>
+
+            <div style="margin-top: 15px;">
+                <button class="editBtn" onclick="approveOwner(${index})">
+                Accept
+                </button>
+
+                <button class="deleteBtn" onclick="rejectOwner(${index})">
+                Reject
+                </button>
+            </div>
+        </div>
+        `;
+    });
+}
+
+async function deleteStore(i){
+    let store = stores[i];
+    if(confirm(`Are you sure you want to delete ${store.storeName}?`)) {
+        try {
+            await db.collection("stores").doc(store.id).delete();
+            await db.collection("users").doc(store.id).update({ approved: "deleted" }).catch(()=>console.log("User doc not found"));
+        } catch (error) {
+            console.error("Delete error:", error);
+        }
+    }
+}
+
+async function editStore(i){
+    let store = stores[i];
+    let newName = prompt("New Store Name:", store.storeName || store.name);
+
+    if(newName && newName.trim() !== ""){
+        try {
+            await db.collection("stores").doc(store.id).update({
+                storeName: newName,
+                name: newName
+            });
+        } catch (error) {
+            console.error("Edit error:", error);
+        }
+    }
+}
+async function approveOwner(i){
+
+    let owner = pendingOwners[i];
+
+    try {
+
+        await fetch(`https://tartness-open-exfoliate.ngrok-free.dev/api/auth/approve-by-email?email=${owner.email}`, {
+            method: "PUT"
+        });
+
+        await db.collection("stores").doc(owner.id).update({
+            approved: true,
+            role: "PROVIDER"
+        });
+
+        await db.collection("users").doc(owner.id).update({
+            approved: true,
+            role: "PROVIDER"
+        }).catch(()=>console.log("User doc not found"));
+
+        alert("Accepted");
+
+    } catch(error) {
+
+        console.error("Approve error:", error);
+
+    }
+}
+async function rejectOwner(i){
+    let owner = pendingOwners[i];
+    if(confirm(`Are you sure you want to reject ${owner.storeName || owner.name}?`)) {
+        try {
+            await db.collection("stores").doc(owner.id).delete();
+            await db.collection("users").doc(owner.id).delete().catch(()=>console.log("User doc not found"));
+            alert("Rejected");
+        } catch(error) {
+            console.error("Reject error:", error);
+        }
+    }
+}
+
+async function showUsers(){
+    try {
+        const usersSnap = await db.collection("users").get();
+        
+        const storesSnap = await db.collection("stores").where("approved", "==", true).get();
+        
+        const deletedSnap = await db.collection("users").where("approved", "==", "deleted").get();
+        
+        alert(
+            "📊 System Statistics:\n\n" +
+            "✅ Active Stores: " + storesSnap.size + "\n" +
+            "❌ Deleted Stores: " + deletedSnap.size + "\n" +
+            "👥 Total Registered Accounts: " + usersSnap.size
+        );
+    } catch(error) {
+        console.error("Stats error:", error);
+        alert("Error fetching stats from Firebase.");
+    }
+}
+
+function logout(){
+    window.location.href="login2.html";
+}
+
+</script>
+<script src="dark-mode.js"></script>
+</body>
+</html>
